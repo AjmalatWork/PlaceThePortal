@@ -10,9 +10,9 @@ Attached To Object
 Function
 
 **********************************************************************
-VictoryCondition            
+BallController           
 Ball                      
-To check if victory condition is achieved
+To check if victory condition is achieved and collection of stars by Ball
 **********************************************************************
 PortalController            
 Portal                    
