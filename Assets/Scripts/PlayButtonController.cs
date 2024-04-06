@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayButtonController : MonoBehaviour
@@ -11,13 +12,14 @@ public class PlayButtonController : MonoBehaviour
     bool isPlay = true;
     bool isRestart = false;
     GameObject ball;
-    GameObject portalIcon;
+    GameObject[] stars;
     Vector3 ballPosition;
     Vector3 ballVelocity;
-    Vector3 portalIconPosition;
+    Vector3[] starPosition = new Vector3[3];
     Rigidbody2D ballRb;
     PortalController[] portalControllers;
     PlayerController[] playerControllers;
+    BallController ballController;
 
     private void Awake()
     {
@@ -130,10 +132,18 @@ public class PlayButtonController : MonoBehaviour
     {
         ball = GameObject.FindGameObjectWithTag("Portable");
         ballRb = ball.GetComponent<Rigidbody2D>();
+        ballController = ball.GetComponent<BallController>();
+        stars = GameObject.FindGameObjectsWithTag("Collectible");
 
         // Get original position of ball and velocity
         ballPosition = ball.transform.position;
         ballVelocity = ballRb.velocity;
+
+        // Get original positions of stars
+        for(int i = 0;i< stars.Length; i++) 
+        {
+            starPosition[i] = stars[i].transform.position;
+        }
     }
 
     private void SetOriginalPosition()
@@ -141,6 +151,16 @@ public class PlayButtonController : MonoBehaviour
         // Set ball to original position and velocity
         ball.transform.position = ballPosition;
         ballRb.velocity = ballVelocity;
+
+        // Set original positions of stars
+        for (int i = 0; i < stars.Length; i++)
+        {
+            stars[i].SetActive(true);
+            stars[i].transform.position = starPosition[i];
+        }
+
+        // Set starsCollected to zero on restart
+        ballController.starsCollected = 0f;
     }
 
 }

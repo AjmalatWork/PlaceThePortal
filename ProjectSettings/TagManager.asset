@@ -9,6 +9,7 @@ TagManager:
   - PortalIcon
   - PortalPlaceholder
   - Goal
+  - Collectible
   layers:
   - Default
   - TransparentFX

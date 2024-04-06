@@ -19,7 +19,7 @@ public class PortalController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Portable"))
-        { 
+        {
             if (Vector2.Distance(ball.transform.position, transform.position) > 0.3f)
             {
                 // Get direction of Entry Portal
@@ -38,7 +38,7 @@ public class PortalController : MonoBehaviour
                 ballRb.velocity = ballExitDirection * ballRb.velocity.magnitude;
 
                 // Change position to exit portal position
-                ball.transform.position = destination.transform.position + ball.transform.localScale.magnitude/2 * exitDirection;
+                ball.transform.position = destination.transform.position + ball.transform.localScale.magnitude / 2 * exitDirection;
 
             }
         }
