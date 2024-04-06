@@ -12,7 +12,7 @@ Function
 **********************************************************************
 VictoryCondition            
 Ball                      
-To check if vicotry condition is achieved
+To check if victory condition is achieved
 **********************************************************************
 PortalController            
 Portal                    
