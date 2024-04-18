@@ -13,22 +13,79 @@ public class PlayButtonController : MonoBehaviour
     GameObject[] portals;
     GameObject[] portalPlaceholders;
     GameObject ball;
+    GameObject button;
+    GameObject laserGun;
     GameObject[] stars;
     Vector3 ballPosition;
     Vector3 ballVelocity;
+    Vector3 buttonPosition;
     Vector3[] starPosition = new Vector3[3];
     Rigidbody2D ballRb;
     PortalController[] portalControllers;
     PlayerController[] playerControllers;
     BallController ballController;
+    LaserButton laserButton;    
+    Laser laser;
+    bool isLaserOn;
 
-    private void Awake()
+    private void Start()
     {
         // Freeze time at the beginning
         Time.timeScale = 0f;
 
         // Get original positions of game objects
-        GetOriginalPosition();        
+        GetOriginalPosition();
+
+    }
+
+    private void GetOriginalPosition()
+    {
+        ball = GameObject.FindGameObjectWithTag("Portable");
+        ballRb = ball.GetComponent<Rigidbody2D>();
+        ballController = ball.GetComponent<BallController>();
+        stars = GameObject.FindGameObjectsWithTag("Collectible");
+        button = GameObject.FindGameObjectWithTag("Button");
+        laserButton = button.GetComponent<LaserButton>();
+        laserGun = GameObject.FindGameObjectWithTag("Laser");        
+        laser = laserGun.GetComponent<Laser>();
+
+        // Get original position of ball and button and velocity
+        ballPosition = ball.transform.position;
+        ballVelocity = ballRb.velocity;
+        buttonPosition = button.transform.position;
+        isLaserOn = laser.isLaserOn;
+
+        // Get original positions of stars
+        for (int i = 0;i< stars.Length; i++) 
+        {
+            starPosition[i] = stars[i].transform.position;
+        }
+    }
+
+    private void SetOriginalPosition()
+    {
+        // Set ball to original position and velocity
+        ball.transform.position = ballPosition;
+        ballRb.velocity = ballVelocity;
+        laserButton.isButtonPressed = false;
+
+        // Set original position and state of button
+        button.transform.position = buttonPosition;
+
+        // Set laser state to original state
+        laser.isLaserOn = isLaserOn;
+        laser.SwitchLaser(laser.isLaserOn);
+
+        // Set original positions of stars
+        for (int i = 0; i < stars.Length; i++)
+        {
+            stars[i].SetActive(true);
+            stars[i].transform.position = starPosition[i];
+        }
+
+        // Set starsCollected to zero on restart
+        Debug.Log("Stars Collected this run: " + ballController.starsCollected);
+        ballController.starsCollected = 0f;
     }
 
     private void OnMouseDown()
@@ -128,40 +185,4 @@ public class PlayButtonController : MonoBehaviour
             }      
         }
     }
-
-    private void GetOriginalPosition()
-    {
-        ball = GameObject.FindGameObjectWithTag("Portable");
-        ballRb = ball.GetComponent<Rigidbody2D>();
-        ballController = ball.GetComponent<BallController>();
-        stars = GameObject.FindGameObjectsWithTag("Collectible");
-
-        // Get original position of ball and velocity
-        ballPosition = ball.transform.position;
-        ballVelocity = ballRb.velocity;
-
-        // Get original positions of stars
-        for(int i = 0;i< stars.Length; i++) 
-        {
-            starPosition[i] = stars[i].transform.position;
-        }
-    }
-
-    private void SetOriginalPosition()
-    {
-        // Set ball to original position and velocity
-        ball.transform.position = ballPosition;
-        ballRb.velocity = ballVelocity;
-
-        // Set original positions of stars
-        for (int i = 0; i < stars.Length; i++)
-        {
-            stars[i].SetActive(true);
-            stars[i].transform.position = starPosition[i];
-        }
-
-        // Set starsCollected to zero on restart
-        ballController.starsCollected = 0f;
-    }
-
 }

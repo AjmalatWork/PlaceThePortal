@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,21 +8,28 @@ public class LaserButton : MonoBehaviour
 {
     Vector3 buttonUpPosition;
     Vector3 buttonDownPosition;
-    bool isButtonPressed = false;
-    public float buttonDelay = 0.5f;
+    [NonSerialized] public bool isButtonPressed = false;
+    public float buttonDelay = 1f;
     public float moveSpeed = 5f;
+    float lastCollisionTime;
+    float currentCollisionTime;
+    float timeSinceLastCollision;
+    Laser laser;
+    public GameObject laserGun;
 
     void Awake()
     {
         buttonUpPosition = transform.position;
         buttonDownPosition = new Vector3(transform.position.x, transform.position.y - transform.localScale.y / 3, transform.position.z);
+        lastCollisionTime = Time.time;
+        laser = laserGun.GetComponent<Laser>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Portable") && !isButtonPressed)
         {
-            StartCoroutine(ButtonPressCoroutine());         
+            PressButton();
         }
     }
 
@@ -29,8 +37,22 @@ public class LaserButton : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Portable") && isButtonPressed)
         {
-            StartCoroutine(ButtonReleaseCoroutine());            
+            if(timeSinceLastCollision > 1.5f * buttonDelay)
+            {
+                StartCoroutine(ButtonReleaseCoroutine());
+            }            
         }
+    }
+
+    void PressButton()
+    {
+        currentCollisionTime = Time.time;
+        timeSinceLastCollision = currentCollisionTime - lastCollisionTime;
+        lastCollisionTime = currentCollisionTime;
+
+        StartCoroutine(ButtonPressCoroutine());
+
+        laser.SwitchLaser(!laser.isLaserOn);      
     }
 
     private IEnumerator ButtonPressCoroutine()

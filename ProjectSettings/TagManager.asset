@@ -11,6 +11,8 @@ TagManager:
   - Goal
   - Collectible
   - PlayButton
+  - Button
+  - Laser
   layers:
   - Default
   - TransparentFX

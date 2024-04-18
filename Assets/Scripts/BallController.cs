@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    public float terminalVelocity; // Maximum velocity limit
+    public float terminalVelocity; 
     private Rigidbody2D ballRb;
     [NonSerialized]public float starsCollected = 0;
 
@@ -37,7 +37,6 @@ public class BallController : MonoBehaviour
         {
             starsCollected ++;
             collision.gameObject.SetActive(false);
-            Debug.Log("Stars collected: " + starsCollected);
         }
     }
 }

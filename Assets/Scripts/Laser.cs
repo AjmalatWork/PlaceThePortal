@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class Laser : MonoBehaviour
     LineRenderer lineRenderer;
     BoxCollider2D laserCollider;
     LayerMask ignoreLayer;
+    public bool isLaserOn = true;
 
     void Awake()
     {
@@ -19,7 +21,11 @@ public class Laser : MonoBehaviour
 
     void Update()
     {
-        ShootLaser();
+        if (isLaserOn)
+        {
+            ShootLaser();
+        }
+        
     }
 
     void ShootLaser()
@@ -61,5 +67,12 @@ public class Laser : MonoBehaviour
             Debug.Log("Restart!");
             Time.timeScale = 0f;
         }
+    }
+
+    public void SwitchLaser(bool switchLaser)
+    {
+        lineRenderer.enabled = switchLaser;
+        laserCollider.enabled = switchLaser;
+        isLaserOn = switchLaser;
     }
 }
