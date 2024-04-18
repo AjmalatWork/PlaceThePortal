@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,11 +7,11 @@ using UnityEngine;
 public class PlayButtonController : MonoBehaviour
 {
     public GameObject portal;
+    [NonSerialized] public bool isPlay = true;
+    [NonSerialized] public bool isRestart = false;
 
     GameObject[] portals;
     GameObject[] portalPlaceholders;
-    bool isPlay = true;
-    bool isRestart = false;
     GameObject ball;
     GameObject[] stars;
     Vector3 ballPosition;

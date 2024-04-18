@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    public float terminalVelocity; // Maximum velocity limit (m/s)
+    public float terminalVelocity; // Maximum velocity limit
     private Rigidbody2D ballRb;
     [NonSerialized]public float starsCollected = 0;
 

@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fadcd4ffc2f819747960ab557c87f260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portal: {fileID: 0}
+  portal: {fileID: 1973725480156956171, guid: de190f3b7247855468506fcf8183001e, type: 3}
 --- !u!61 &8108407822409736119
 BoxCollider2D:
   m_ObjectHideFlags: 0
