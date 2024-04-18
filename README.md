@@ -1,7 +1,7 @@
 # PlaceThePortal
  A puzzle game made in unity for Android
 
-All screipts are in the folder Assets->Scripts
+All scripts are in the folder Assets->Scripts
 Below is the rundown for what each script does and what object is is attached to:
 
 // In this format
@@ -10,9 +10,9 @@ Attached To Object
 Function
 
 **********************************************************************
-VictoryCondition            
+BallController           
 Ball                      
-To check if victory condition is achieved
+To check if victory condition is achieved and collection of stars by Ball
 **********************************************************************
 PortalController            
 Portal                    
