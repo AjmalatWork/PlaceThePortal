@@ -28,5 +28,17 @@ For the logic of dragging and placing the placeholders
 **********************************************************************
 PlayButtonController        
 PlayButton                
-For the logic of play and restart to freeze and resume time
+For the logic of play and restart to freeze and resume time and reset all positions
+**********************************************************************
+CameraController        
+Camera              
+To control the camera movement for larger levels
+**********************************************************************
+Laser      
+LaserGun                
+For the logic of drawing the laser and switching it on and off
+**********************************************************************
+LaserButton      
+LaserButton                
+For the logic of pressing the button and controlling the laser with it
 **********************************************************************
