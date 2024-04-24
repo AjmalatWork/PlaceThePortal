@@ -18,6 +18,11 @@ public class PortalController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(destination == null)
+        {
+            return;
+        }
+
         if (collision.gameObject.CompareTag("Portable"))
         {
             if (Vector2.Distance(ball.transform.position, transform.position) > 0.3f)

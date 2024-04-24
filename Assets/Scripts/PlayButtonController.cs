@@ -24,7 +24,7 @@ public class PlayButtonController : MonoBehaviour
     PortalController[] portalControllers;
     PlayerController[] playerControllers;
     BallController ballController;
-    LaserButton laserButton;    
+    LaserButton laserButton;
     Laser laser;
     bool isLaserOn;
 
@@ -44,19 +44,27 @@ public class PlayButtonController : MonoBehaviour
         ballRb = ball.GetComponent<Rigidbody2D>();
         ballController = ball.GetComponent<BallController>();
         stars = GameObject.FindGameObjectsWithTag("Collectible");
-        button = GameObject.FindGameObjectWithTag("Button");
-        laserButton = button.GetComponent<LaserButton>();
-        laserGun = GameObject.FindGameObjectWithTag("Laser");        
-        laser = laserGun.GetComponent<Laser>();
+
+        if (GameObject.FindGameObjectWithTag("Button"))
+        {
+            button = GameObject.FindGameObjectWithTag("Button");
+            laserButton = button.GetComponent<LaserButton>();
+            buttonPosition = button.transform.position;
+        }
+
+        if (GameObject.FindGameObjectWithTag("Laser"))
+        {
+            laserGun = GameObject.FindGameObjectWithTag("Laser");
+            laser = laserGun.GetComponent<Laser>();
+            isLaserOn = laser.isLaserOn;
+        }
 
         // Get original position of ball and button and velocity
         ballPosition = ball.transform.position;
         ballVelocity = ballRb.velocity;
-        buttonPosition = button.transform.position;
-        isLaserOn = laser.isLaserOn;
 
         // Get original positions of stars
-        for (int i = 0;i< stars.Length; i++) 
+        for (int i = 0; i < stars.Length; i++)
         {
             starPosition[i] = stars[i].transform.position;
         }
@@ -67,14 +75,20 @@ public class PlayButtonController : MonoBehaviour
         // Set ball to original position and velocity
         ball.transform.position = ballPosition;
         ballRb.velocity = ballVelocity;
-        laserButton.isButtonPressed = false;
 
         // Set original position and state of button
-        button.transform.position = buttonPosition;
+        if (button)
+        {
+            laserButton.isButtonPressed = false;
+            button.transform.position = buttonPosition;
+        }
 
         // Set laser state to original state
-        laser.isLaserOn = isLaserOn;
-        laser.SwitchLaser(laser.isLaserOn);
+        if (laser)
+        {
+            laser.isLaserOn = isLaserOn;
+            laser.SwitchLaser(laser.isLaserOn);
+        }
 
         // Set original positions of stars
         for (int i = 0; i < stars.Length; i++)
@@ -90,7 +104,7 @@ public class PlayButtonController : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (isPlay) 
+        if (isPlay)
         {
             // Start time on pressing Play
             Time.timeScale = 1f;
@@ -114,27 +128,30 @@ public class PlayButtonController : MonoBehaviour
             // Convert portals back to placeholders on restart
             deactivatePortals();
         }
-        
+
     }
 
     private void activatePortals()
-    {
-        // Portal object
-        portals = new GameObject[2];
-
+    {        
         // Portal Placeholder object
         portalPlaceholders = GameObject.FindGameObjectsWithTag("PortalPlaceholder");
 
-        // Portal Controller Script
-        portalControllers = new PortalController[2];
-
-        // Portal Placeholder Controller Script
-        playerControllers = new PlayerController[2];
+        int numberOfPortals = portalPlaceholders.Length;
 
         // If placeholders are available
-        if (portalPlaceholders.Length > 0)
+        if (numberOfPortals > 0)
         {
-            for (int i = 0; i < 2; i++)
+            // Portal object
+            portals = new GameObject[numberOfPortals];
+
+            // Portal Controller Script
+            portalControllers = new PortalController[numberOfPortals];
+
+            // Portal Placeholder Controller Script
+            playerControllers = new PlayerController[numberOfPortals];
+
+            // Loop to deactivate portal placeholder and instantiate portal
+            for (int i = 0; i < numberOfPortals; i++)
             {
                 // Get script for public object isPortalPlaced
                 playerControllers[i] = portalPlaceholders[i].GetComponent<PlayerController>();
@@ -154,35 +171,62 @@ public class PlayButtonController : MonoBehaviour
                 portalPlaceholders[i].SetActive(false);
             }
 
-            // If both portals are placed, then add destinations
-            if (playerControllers[0].isPortalPlaced && playerControllers[1].isPortalPlaced)
+            // Loop to add destination of all portals
+            for (int i = 0;i < numberOfPortals; i+=2) 
             {
-                portalControllers[0].destination = portalControllers[1].transform;
-                portalControllers[1].destination = portalControllers[0].transform;
-            }
-            // if only one portal is placed, then remove destination
-            else if (playerControllers[0].isPortalPlaced)
-            {
-                portalControllers[0].destination = null;
-            }
-            else if (playerControllers[1].isPortalPlaced)
-            {
-                portalControllers[1].destination = null;
+                // If both portals are placed, then add destinations
+                if (playerControllers[i].isPortalPlaced && playerControllers[i + 1].isPortalPlaced)
+                {
+                    portalControllers[i].destination = portalControllers[i + 1].transform;
+                    portalControllers[i + 1].destination = portalControllers[i].transform;
+                }
+                // if only one portal is placed, then remove destination
+                else if (playerControllers[i].isPortalPlaced)
+                {
+                    portalControllers[i].destination = null;
+                }
+                else if (playerControllers[i + 1].isPortalPlaced)
+                {
+                    portalControllers[i + 1].destination = null;
+                }
             }
         }
     }
 
     private void deactivatePortals()
     {
-        // If portal placeholders and portals are available
-        if (portalPlaceholders.Length > 0 && portals.Length > 0)
-        { 
-            // Set placeholders as active and destroy portal objects
-            for (int i = 0; i < 2; i++)
+        int numberOfPortalPlaceholders = 0;
+        int numberOfPortals = 0;
+
+        if (portalPlaceholders != null)
+        {
+            numberOfPortalPlaceholders = portalPlaceholders.Length;
+        }
+        
+        if(portals != null)
+        {
+            numberOfPortals = portals.Length;
+        }
+        
+
+        // If portal placeholders available
+        if (numberOfPortalPlaceholders > 0)
+        {
+            // Set placeholders as active
+            for (int i = 0; i < numberOfPortalPlaceholders; i++)
             {
                 portalPlaceholders[i].SetActive(true);
+            }
+        }
+
+        // If portals are available
+        if (numberOfPortals > 0)
+        {
+            // Set placeholders as active
+            for (int i = 0; i < numberOfPortals; i++)
+            {
                 Destroy(portals[i]);
-            }      
+            }
         }
     }
 }
