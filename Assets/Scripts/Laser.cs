@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : MonoBehaviour
+public class Laser : MonoBehaviour, IResetable
 {
     [SerializeField] private float laserDistance = 100;
     public Transform laserStartPoint;
@@ -11,6 +8,7 @@ public class Laser : MonoBehaviour
     BoxCollider2D laserCollider;
     LayerMask ignoreLayer;
     public bool isLaserOn = true;
+    bool originalStateLaser;
 
     void Awake()
     {
@@ -75,4 +73,16 @@ public class Laser : MonoBehaviour
         laserCollider.enabled = switchLaser;
         isLaserOn = switchLaser;
     }
+
+    public void GetOriginalState()
+    {
+        originalStateLaser = isLaserOn;
+    }
+
+    public void SetOriginalState()
+    {
+        isLaserOn = originalStateLaser;
+        SwitchLaser(isLaserOn);
+    }
+
 }

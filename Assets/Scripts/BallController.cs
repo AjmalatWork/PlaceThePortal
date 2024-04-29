@@ -1,14 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BallController : MonoBehaviour
+public class BallController : MonoBehaviour, IResetable
 {
     public float terminalVelocity; 
     private Rigidbody2D ballRb;
     [NonSerialized]public float starsCollected = 0;
 
+    Vector3 originalPosition;
+    Vector3 originalVelocity;
     private void Awake()
     {
         ballRb = GetComponent<Rigidbody2D>();
@@ -38,5 +38,22 @@ public class BallController : MonoBehaviour
             starsCollected ++;
             collision.gameObject.SetActive(false);
         }
+    }
+
+    public void GetOriginalState()
+    {
+        // Get original position of ball and velocity
+        originalPosition = transform.position;
+        originalVelocity = ballRb.velocity;
+
+    }
+
+    public void SetOriginalState()
+    {
+        // Set original position and velocity of ball
+        transform.position = originalPosition;
+        ballRb.velocity = originalVelocity;
+        Debug.Log("Stars Collected this run: " + starsCollected);
+        starsCollected = 0f;
     }
 }

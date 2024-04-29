@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
-public class LaserButton : MonoBehaviour
+public class LaserButton : MonoBehaviour, IResetable
 {
     Vector3 buttonUpPosition;
     Vector3 buttonDownPosition;
@@ -16,6 +14,7 @@ public class LaserButton : MonoBehaviour
     float timeSinceLastCollision;
     Laser laser;
     public GameObject laserGun;
+    Vector3 originalPosition;
 
     void Awake()
     {
@@ -74,6 +73,17 @@ public class LaserButton : MonoBehaviour
             yield return null;
         }
         isButtonPressed = false;
+    }
+
+    public void GetOriginalState()
+    {
+        originalPosition = transform.position;
+    }
+
+    public void SetOriginalState()
+    {
+        isButtonPressed = false;
+        transform.position = originalPosition;
     }
 
 }

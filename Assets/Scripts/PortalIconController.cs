@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class PortalIconController : MonoBehaviour
+public class PortalIconController : MonoBehaviour, IClickableUI
 {
     public GameObject portalX;
     public GameObject portalY;
     public Vector3 portalXPosition;
     public Vector3 portalYPosition;
 
-    private void OnMouseDown()
+    public void OnClick()
     {
         // Deactivate portal icon on click and create two portal placeholders on screen
         gameObject.SetActive(false);

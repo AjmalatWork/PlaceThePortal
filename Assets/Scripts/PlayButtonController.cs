@@ -1,132 +1,91 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 
-public class PlayButtonController : MonoBehaviour
+public class PlayButtonController : MonoBehaviour, IClickableUI
 {
     public GameObject portal;
     [NonSerialized] public bool isPlay = true;
-    [NonSerialized] public bool isRestart = false;
 
     GameObject[] portals;
     GameObject[] portalPlaceholders;
-    GameObject ball;
-    GameObject button;
-    GameObject laserGun;
-    GameObject[] stars;
-    Vector3 ballPosition;
-    Vector3 ballVelocity;
-    Vector3 buttonPosition;
-    Vector3[] starPosition = new Vector3[3];
-    Rigidbody2D ballRb;
     PortalController[] portalControllers;
     PlayerController[] playerControllers;
-    BallController ballController;
-    LaserButton laserButton;
-    Laser laser;
-    bool isLaserOn;
+
+    private List<IResetable> resetableObjects = new();
 
     private void Start()
     {
         // Freeze time at the beginning
         Time.timeScale = 0f;
 
+        // Populate the list of resettable objects
+        FindResetableObjects();
+
         // Get original positions of game objects
         GetOriginalPosition();
 
     }
 
+    void FindResetableObjects()
+    {
+        resetableObjects.Clear();
+        // Find all objects with IResettable interface and add them to the list
+        resetableObjects.AddRange(FindObjectsOfType<MonoBehaviour>().OfType<IResetable>());
+    }
+
     private void GetOriginalPosition()
     {
-        ball = GameObject.FindGameObjectWithTag("Portable");
-        ballRb = ball.GetComponent<Rigidbody2D>();
-        ballController = ball.GetComponent<BallController>();
-        stars = GameObject.FindGameObjectsWithTag("Collectible");
-
-        if (GameObject.FindGameObjectWithTag("Button"))
+        // Get original state of resetable objects
+        foreach (var obj in resetableObjects)
         {
-            button = GameObject.FindGameObjectWithTag("Button");
-            laserButton = button.GetComponent<LaserButton>();
-            buttonPosition = button.transform.position;
-        }
-
-        if (GameObject.FindGameObjectWithTag("Laser"))
-        {
-            laserGun = GameObject.FindGameObjectWithTag("Laser");
-            laser = laserGun.GetComponent<Laser>();
-            isLaserOn = laser.isLaserOn;
-        }
-
-        // Get original position of ball and button and velocity
-        ballPosition = ball.transform.position;
-        ballVelocity = ballRb.velocity;
-
-        // Get original positions of stars
-        for (int i = 0; i < stars.Length; i++)
-        {
-            starPosition[i] = stars[i].transform.position;
+            obj.GetOriginalState();
         }
     }
 
     private void SetOriginalPosition()
     {
-        // Set ball to original position and velocity
-        ball.transform.position = ballPosition;
-        ballRb.velocity = ballVelocity;
-
-        // Set original position and state of button
-        if (button)
+        // Set original state of resetable objects
+        foreach (var obj in resetableObjects)
         {
-            laserButton.isButtonPressed = false;
-            button.transform.position = buttonPosition;
+            obj.SetOriginalState();
         }
-
-        // Set laser state to original state
-        if (laser)
-        {
-            laser.isLaserOn = isLaserOn;
-            laser.SwitchLaser(laser.isLaserOn);
-        }
-
-        // Set original positions of stars
-        for (int i = 0; i < stars.Length; i++)
-        {
-            stars[i].SetActive(true);
-            stars[i].transform.position = starPosition[i];
-        }
-
-        // Set starsCollected to zero on restart
-        Debug.Log("Stars Collected this run: " + ballController.starsCollected);
-        ballController.starsCollected = 0f;
     }
 
-    private void OnMouseDown()
+    void StartGame()
+    {
+        // Start time on pressing Play
+        Time.timeScale = 1f;
+        isPlay = false;
+
+        // Activate portals if portalplaceholders are placed on placeable objects
+        activatePortals();
+    }
+
+    void ResetGame()
+    {
+        isPlay = true;
+
+        // Set game objects to their original positions
+        SetOriginalPosition();
+
+        // Convert portals back to placeholders on restart
+        deactivatePortals();
+
+        // Freeze time on pressing restart
+        Time.timeScale = 0f;
+    }
+
+    public void OnClick()
     {
         if (isPlay)
         {
-            // Start time on pressing Play
-            Time.timeScale = 1f;
-            isPlay = false;
-            isRestart = true;
-
-            // Activate portals if portalplaceholders are placed on placeable objects
-            activatePortals();
+            StartGame();
         }
-
-        else if (isRestart)
+        else
         {
-            // Freeze time on pressing restart
-            Time.timeScale = 0f;
-            isPlay = true;
-            isRestart = false;
-
-            // Set game objects to their original positions
-            SetOriginalPosition();
-
-            // Convert portals back to placeholders on restart
-            deactivatePortals();
+            ResetGame();
         }
 
     }

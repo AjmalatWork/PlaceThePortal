@@ -1,10 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -36,7 +31,7 @@ public class PlayerController : MonoBehaviour
         isDragging = true;
     }
 
-    private bool checkEnd( Vector3 portalEnd)
+    private bool CheckEnd( Vector3 portalEnd)
     {        
         // Cast a ray in the direction opposite to portal direction from ends of the portal
         // if the ray hits a point that is very close to the portalEnd, then it is on the edge of the placeable object
@@ -53,14 +48,14 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    private Vector3 getDirectionToMovePortal(Vector3 portalEnd) 
+    private Vector3 GetDirectionToMovePortal(Vector3 portalEnd) 
     {
         // direction from centre to the end that is on the boundary
         Vector3 direction;
         direction = (portalEnd - portalPosition).normalized;
         return direction;
     }
-    private float getMagnitudeToMovePortal(Vector3 portalEnd)
+    private float GetMagnitudeToMovePortal(Vector3 portalEnd)
     {
         // magnitude is half of the x scale of portal
         // this is approximate value, can be optimized
@@ -69,7 +64,7 @@ public class PlayerController : MonoBehaviour
         return magnitude;
     }
 
-    private void getPortalEnds(float angle)
+    private void GetPortalEnds(float angle)
     {        
         // Endpoints are ( x +- rcosQ, y +- rsinQ) and then move a little in the direction of the portal so that the ray hits the collider
         portalEndA = new Vector3(portalPosition.x + transform.localScale.x / 2 * Mathf.Cos(angle * Mathf.Deg2Rad), portalPosition.y + transform.localScale.x / 2 * Mathf.Sin(angle * Mathf.Deg2Rad), 0);
@@ -99,11 +94,11 @@ public class PlayerController : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
             // Get endpoints of the placed portal
-            getPortalEnds(angle);
+            GetPortalEnds(angle);
 
             // Check if portal ends on placeable object boundary
-            bool checkEndA = checkEnd(portalEndA);
-            bool checkEndB = checkEnd(portalEndB);
+            bool checkEndA = CheckEnd(portalEndA);
+            bool checkEndB = CheckEnd(portalEndB);
 
             // If both ends are on edge
             if (checkEndA && checkEndB)
@@ -125,8 +120,8 @@ public class PlayerController : MonoBehaviour
                 Vector3 portalEndNotOnBoundary = checkEndA ? portalEndB : portalEndA;
 
                 // Get the direction and magnitude to move the portal in the direction of the end that is on boundary
-                direction = getDirectionToMovePortal(portalEndOnBoundary);
-                magnitude = getMagnitudeToMovePortal(portalEndNotOnBoundary);
+                direction = GetDirectionToMovePortal(portalEndOnBoundary);
+                magnitude = GetMagnitudeToMovePortal(portalEndNotOnBoundary);
                 portalPosition += direction * magnitude;
 
                 transform.position = portalPosition;
@@ -162,7 +157,7 @@ public class PlayerController : MonoBehaviour
         Vector2 nearestDirection = Vector2.zero;
         Vector2 nearestHitPoint = Vector2.zero;
 
-        // Get new postion of object at each frame itis being dragged
+        // Get new postion of object at each frame it is being dragged
         Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
         newPosition = new Vector3(newPosition.x, newPosition.y, transform.position.z);
 
