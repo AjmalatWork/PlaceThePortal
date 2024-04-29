@@ -10,7 +10,6 @@ public class CameraController : MonoBehaviour
     public GameObject ball;
 
     bool isDragging = false;
-    Vector3 targetPosition;
     float originX;
     PlayButtonController playButtonController;
 
@@ -40,9 +39,15 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 mouseWorldPositon = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            originX = mouseWorldPositon.x;
-            isDragging = true;
+            // Perform a raycast from the mouse position in z direction
+            // If no collider is hit, then only move the camera
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward);
+            if (hit.collider == null)
+            {
+                Vector3 mouseWorldPositon = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                originX = mouseWorldPositon.x;
+                isDragging = true;
+            }
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -52,22 +57,16 @@ public class CameraController : MonoBehaviour
 
         if (isDragging)
         {
-            // Get new postion of object at each frame it is being dragged
-            float newPositionX = Mathf.Clamp( 2 * originX - Camera.main.ScreenToWorldPoint(Input.mousePosition).x, minX, maxX);
-            targetPosition = new Vector3(newPositionX, transform.position.y, transform.position.z);
-            transform.position = Vector3.Lerp(targetPosition, transform.position, Time.fixedDeltaTime * speed);
-            Debug.Log(originX);
-            Debug.Log(newPositionX);
+            float newPositionX = Mathf.Clamp(transform.position.x + originX - Camera.main.ScreenToWorldPoint(Input.mousePosition).x,minX,maxX);
+            Vector3 targetPosition = new Vector3(newPositionX, transform.position.y, transform.position.z);
+            transform.position = Vector3.Lerp(targetPosition, transform.position, Time.deltaTime * speed);
         }
 
     }
 
     private void MoveCamWithBall()
     {
-        if (ball.transform.position.x >= minX && ball.transform.position.x <= maxX)
-        {
-            transform.position = new Vector3(ball.transform.position.x, transform.position.y, transform.position.z);
-        }
-        
+        float newPositionX = Mathf.Clamp(ball.transform.position.x, minX, maxX);
+        transform.position = new Vector3(newPositionX, transform.position.y, transform.position.z);        
     }
 }

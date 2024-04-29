@@ -41,8 +41,9 @@ public class PortalController : MonoBehaviour
                 // Change position to exit portal position
                 ball.transform.position = destination.transform.position + ball.transform.localScale.magnitude / 2 * exitDirection;
 
+                Debug.Log(ballEntryDirection);
+
             }
         }
     }
-
 }

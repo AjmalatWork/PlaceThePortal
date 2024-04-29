@@ -30,7 +30,6 @@ public class UIManager : MonoBehaviour
 
     private void OnButtonClick(Button button)
     {
-        Debug.Log(button);
         foreach (IClickableUI clickable in clickableUIObjects)
         {
             if (clickable is MonoBehaviour monoBehaviour && monoBehaviour.gameObject == button.gameObject)
