@@ -9,6 +9,7 @@ public class BallController : MonoBehaviour, IResetable
 
     Vector3 originalPosition;
     Vector3 originalVelocity;
+    Quaternion originalRotation;
     private void Awake()
     {
         ballRb = GetComponent<Rigidbody2D>();
@@ -44,6 +45,7 @@ public class BallController : MonoBehaviour, IResetable
     {
         // Get original position of ball and velocity
         originalPosition = transform.position;
+        originalRotation = transform.rotation;
         originalVelocity = ballRb.velocity;
 
     }
@@ -52,6 +54,7 @@ public class BallController : MonoBehaviour, IResetable
     {
         // Set original position and velocity of ball
         transform.position = originalPosition;
+        transform.rotation = originalRotation;
         ballRb.velocity = originalVelocity;
         Debug.Log("Stars Collected this run: " + starsCollected);
         starsCollected = 0f;

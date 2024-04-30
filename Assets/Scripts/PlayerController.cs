@@ -1,4 +1,5 @@
 using System;
+//using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -108,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
                 // Set the position of the portal
                 transform.position = portalPosition;
-
+                Debug.Log("Both ends case " + transform.position);
                 // Set portalPlaced as true
                 isPortalPlaced = true;
             }
@@ -126,7 +127,7 @@ public class PlayerController : MonoBehaviour
 
                 transform.position = portalPosition;
                 transform.rotation = rotation;
-
+                Debug.Log("One end case " + transform.position);
                 // Set portalPlaced as true
                 isPortalPlaced = true;
 

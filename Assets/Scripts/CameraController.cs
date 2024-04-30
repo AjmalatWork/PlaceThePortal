@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviour, IResetable
 {
     public float minX; 
     public float maxX;
@@ -12,6 +12,8 @@ public class CameraController : MonoBehaviour
     bool isDragging = false;
     float originX;
     PlayButtonController playButtonController;
+
+    Vector3 originalPosition;
 
     private void Awake()
     {
@@ -68,5 +70,15 @@ public class CameraController : MonoBehaviour
     {
         float newPositionX = Mathf.Clamp(ball.transform.position.x, minX, maxX);
         transform.position = new Vector3(newPositionX, transform.position.y, transform.position.z);        
+    }
+
+    public void GetOriginalState()
+    {
+        originalPosition = transform.position;
+    }
+
+    public void SetOriginalState()
+    {
+        transform.position = originalPosition;
     }
 }
