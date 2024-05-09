@@ -15,6 +15,16 @@ public class BallController : MonoBehaviour, IResetable
         ballRb = GetComponent<Rigidbody2D>();
     }
 
+    private void OnEnable()
+    {
+        PlayButtonController.Instance.RegisterResetableObject(this);
+    }
+
+    private void OnDisable()
+    {
+        PlayButtonController.Instance.UnregisterResetableObject(this);
+    }
+
     private void FixedUpdate()
     {
         // Limit velocity to terminal velocity
@@ -27,17 +37,17 @@ public class BallController : MonoBehaviour, IResetable
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // When the ball touches the goal, you win!
-        if (collision.gameObject.CompareTag("Goal"))
+        if (collision.gameObject.CompareTag(TagConstants.Goal))
         {
             Debug.Log("You win!");
             Time.timeScale = 0f;
         }
 
         // When the ball touches the goal, you win!
-        if (collision.gameObject.CompareTag("Collectible"))
+        if (collision.gameObject.CompareTag(TagConstants.Collectible))
         {
             starsCollected ++;
-            collision.gameObject.SetActive(false);
+            collision.gameObject.GetComponent<Star>().OnCollect();
         }
     }
 

@@ -8,15 +8,15 @@ public class PlayerController : MonoBehaviour
     public LayerMask targetLayer;
     public float distanceToSnap;
     public GameObject portal;
+    public bool isDragging = false;
     [NonSerialized] public bool isPortalPlaced = false;
 
     // Private 
-    Vector3 offset;
-    bool isDragging = false;
+    Vector3 offset;    
     GameObject placePortalAt;
     Vector3 portalDirection;
     Vector3 portalPosition;
-    float endThreshold = 0.2f;
+    readonly float endThreshold = 0.2f;
     Vector3 portalEndA;
     Vector3 portalEndB;
 
@@ -74,6 +74,19 @@ public class PlayerController : MonoBehaviour
         portalEndB = portalEndB + transform.localScale.y / 2 * portalDirection;
     }
 
+    //Don't place portal if position is inside another object's collider
+    private bool UnplacePortal()
+    {
+        if (portalPosition == transform.position) 
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }        
+    }
+
     private void OnMouseUp()
     {
         Vector3 direction = Vector3.zero;
@@ -87,7 +100,11 @@ public class PlayerController : MonoBehaviour
 
         // If object is close to a placeable object 
         if(placePortalAt != null )
-        {            
+        {
+            // Don't place portal if inside another collider
+            bool unplacePortal = UnplacePortal();
+            if (unplacePortal) return;
+
             // Calculate the rotation angle around the Z-axis (yaw) using atan2
             float angle = Mathf.Atan2(portalDirection.y, portalDirection.x) * Mathf.Rad2Deg - 90;
 
@@ -109,7 +126,6 @@ public class PlayerController : MonoBehaviour
 
                 // Set the position of the portal
                 transform.position = portalPosition;
-                Debug.Log("Both ends case " + transform.position);
                 // Set portalPlaced as true
                 isPortalPlaced = true;
             }
@@ -127,7 +143,6 @@ public class PlayerController : MonoBehaviour
 
                 transform.position = portalPosition;
                 transform.rotation = rotation;
-                Debug.Log("One end case " + transform.position);
                 // Set portalPlaced as true
                 isPortalPlaced = true;
 

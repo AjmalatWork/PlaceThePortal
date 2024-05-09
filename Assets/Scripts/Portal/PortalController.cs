@@ -8,7 +8,7 @@ public class PortalController : MonoBehaviour
 
     private void Awake()
     {
-        ball = GameObject.FindGameObjectWithTag("Portable");
+        ball = GameObject.Find(NameConstants.Ball);
         ballRb = ball.GetComponent<Rigidbody2D>();
     }
 
@@ -19,7 +19,7 @@ public class PortalController : MonoBehaviour
             return;
         }
 
-        if (collision.gameObject.CompareTag("Portable"))
+        if (collision.gameObject.CompareTag(TagConstants.Portable))
         {
             if (Vector2.Distance(ball.transform.position, transform.position) > 0.3f)
             {

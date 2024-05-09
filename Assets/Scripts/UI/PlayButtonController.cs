@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// Class is singleton as only one playbutton can be present in each level
 public class PlayButtonController : MonoBehaviour, IClickableUI
 {
     public GameObject portal;
@@ -13,26 +14,48 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
     PortalController[] portalControllers;
     PlayerController[] playerControllers;
 
-    private List<IResetable> resetableObjects = new();
+    List<IResetable> resetableObjects = new();
+    public static PlayButtonController Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); 
+        }
+    }
+
+    public void RegisterResetableObject(IResetable resetableObject)
+    {
+        resetableObjects.Add(resetableObject);
+    }
+
+    public void UnregisterResetableObject(IResetable resetableObject)
+    {
+        resetableObjects.Remove(resetableObject);
+    }
 
     private void Start()
     {
         // Freeze time at the beginning
         Time.timeScale = 0f;
 
-        // Populate the list of resettable objects
-        FindResetableObjects();
-
         // Get original positions of game objects
         GetOriginalPosition();
 
     }
 
-    void FindResetableObjects()
+    private void OnEnable()
     {
-        resetableObjects.Clear();
-        // Find all objects with IResettable interface and add them to the list
-        resetableObjects.AddRange(FindObjectsOfType<MonoBehaviour>().OfType<IResetable>());
+        UIManager.Instance.RegisterClickableObject(this);
+    }
+    private void OnDisable()
+    {
+        UIManager.Instance.UnregisterClickableObject(this);
     }
 
     private void GetOriginalPosition()
@@ -93,7 +116,7 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
     private void activatePortals()
     {        
         // Portal Placeholder object
-        portalPlaceholders = GameObject.FindGameObjectsWithTag("PortalPlaceholder");
+        portalPlaceholders = GameObject.FindGameObjectsWithTag(TagConstants.PortalPlaceholder);
 
         int numberOfPortals = portalPlaceholders.Length;
 

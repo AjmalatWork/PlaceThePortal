@@ -400,6 +400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PortalIcon
       objectReference: {fileID: 0}
+    - target: {fileID: 8515090962047838514, guid: 00f0a89a8eda0444cbb92cd02b45f727, type: 3}
+      propertyPath: portalY
+      value: 
+      objectReference: {fileID: 5248898416662585010, guid: 7aa8909356547294dafa04c4a71d32ee, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

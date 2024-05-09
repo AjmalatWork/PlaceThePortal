@@ -3,21 +3,39 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+// UIManager is singleton as there can be only one in each scene
 public class UIManager : MonoBehaviour
 {
     public List<Button> buttons;
     private List<IClickableUI> clickableUIObjects = new();
 
-    void Start()
+    public static UIManager Instance { get; private set; }
+
+    private void Awake()
     {
-        FindClickableUIObjects();
-        AddListenerToObjects();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    void FindClickableUIObjects()
+    public void RegisterClickableObject(IClickableUI clickableObject)
     {
-        clickableUIObjects.Clear();
-        clickableUIObjects.AddRange(FindObjectsOfType<MonoBehaviour>().OfType<IClickableUI>());
+        clickableUIObjects.Add(clickableObject);
+    }
+
+    public void UnregisterClickableObject(IClickableUI clickableObject)
+    {
+        clickableUIObjects.Remove(clickableObject);
+    }
+
+    void Start()
+    {
+        AddListenerToObjects();
     }
 
     void AddListenerToObjects()

@@ -24,9 +24,19 @@ public class LaserButton : MonoBehaviour, IResetable
         laser = laserGun.GetComponent<Laser>();
     }
 
+    private void OnEnable()
+    {
+        PlayButtonController.Instance.RegisterResetableObject(this);
+    }
+
+    private void OnDisable()
+    {
+        PlayButtonController.Instance.UnregisterResetableObject(this);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Portable") && !isButtonPressed)
+        if (collision.gameObject.CompareTag(TagConstants.Portable) && !isButtonPressed)
         {
             PressButton();
         }
@@ -34,7 +44,7 @@ public class LaserButton : MonoBehaviour, IResetable
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Portable") && isButtonPressed)
+        if (collision.gameObject.CompareTag(TagConstants.Portable) && isButtonPressed)
         {
             if(timeSinceLastCollision > 1.5f * buttonDelay)
             {
