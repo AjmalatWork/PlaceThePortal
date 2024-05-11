@@ -33,6 +33,10 @@ For the logic of play and restart to freeze and resume time and reset all positi
 CameraController        
 Camera              
 To control the camera movement for larger levels
+Camera is controlled in 3 ways:
+1. Move on player drag
+2. Move with ball
+3. Move with Portal placeholder if dragging
 **********************************************************************
 Laser      
 LaserGun                
