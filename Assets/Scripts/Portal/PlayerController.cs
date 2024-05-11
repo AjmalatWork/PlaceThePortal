@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask targetLayer;
     public float distanceToSnap;
     public GameObject portal;
-    public bool isDragging = false;
+    [NonSerialized] public bool isDragging = false;
     [NonSerialized] public bool isPortalPlaced = false;
 
     // Private 
@@ -87,10 +87,81 @@ public class PlayerController : MonoBehaviour
         }        
     }
 
+    private void PlacePortal()
+    {
+        Vector3 direction;
+        float magnitude;
+
+        // If object is close to a placeable object 
+        if (placePortalAt == null)
+        {
+            isPortalPlaced = false;
+            return;
+        }
+
+        // Don't place portal if inside another collider
+        bool unplacePortal = UnplacePortal();
+        if (unplacePortal)
+        {
+            isPortalPlaced = false;
+            return;
+        }
+
+        // Calculate the rotation angle around the Z-axis (yaw) using atan2
+        float angle = Mathf.Atan2(portalDirection.y, portalDirection.x) * Mathf.Rad2Deg - 90;
+
+        // Create a rotation quaternion based on the calculated angle
+        Quaternion rotation = Quaternion.Euler(0, 0, angle);
+
+        // Get endpoints of the placed portal
+        GetPortalEnds(angle);
+
+        // Check if portal ends on placeable object boundary
+        bool checkEndA = CheckEnd(portalEndA);
+        bool checkEndB = CheckEnd(portalEndB);
+
+        // If both ends are on edge
+        if (checkEndA && checkEndB)
+        {
+            // Apply the resulting rotation to the object
+            transform.rotation = rotation;
+
+            // Set the position of the portal
+            transform.position = portalPosition;
+            // Set portalPlaced as true
+            isPortalPlaced = true;
+        }
+        // If exactly one end is on edge
+        else if (checkEndA ^ checkEndB)
+        {
+            // Determine which end is on the boundary and which is not
+            Vector3 portalEndOnBoundary = checkEndA ? portalEndA : portalEndB;
+            Vector3 portalEndNotOnBoundary = checkEndA ? portalEndB : portalEndA;
+
+            // Get the direction and magnitude to move the portal in the direction of the end that is on boundary
+            direction = GetDirectionToMovePortal(portalEndOnBoundary);
+            magnitude = GetMagnitudeToMovePortal(portalEndNotOnBoundary);
+            portalPosition += direction * magnitude;
+
+            transform.position = portalPosition;
+            transform.rotation = rotation;
+            // Set portalPlaced as true
+            isPortalPlaced = true;
+        }
+        // if no ends are on edge
+        else
+        {
+            // The portal cannot be placed. Set its rotation to initial
+            transform.rotation = Quaternion.identity;
+
+            // Set portalPlaced as false
+            isPortalPlaced = false;
+        }
+    }
+
     private void OnMouseUp()
     {
-        Vector3 direction = Vector3.zero;
-        float magnitude = 0f;
+        GetPortalPlacePostition();
 
         // Decrease the scale of the object to show click was released
         transform.localScale /= 1.2f;
@@ -98,74 +169,10 @@ public class PlayerController : MonoBehaviour
         // Set dragging as false
         isDragging = false;
 
-        // If object is close to a placeable object 
-        if(placePortalAt != null )
-        {
-            // Don't place portal if inside another collider
-            bool unplacePortal = UnplacePortal();
-            if (unplacePortal) return;
-
-            // Calculate the rotation angle around the Z-axis (yaw) using atan2
-            float angle = Mathf.Atan2(portalDirection.y, portalDirection.x) * Mathf.Rad2Deg - 90;
-
-            // Create a rotation quaternion based on the calculated angle
-            Quaternion rotation = Quaternion.Euler(0, 0, angle);
-
-            // Get endpoints of the placed portal
-            GetPortalEnds(angle);
-
-            // Check if portal ends on placeable object boundary
-            bool checkEndA = CheckEnd(portalEndA);
-            bool checkEndB = CheckEnd(portalEndB);
-
-            // If both ends are on edge
-            if (checkEndA && checkEndB)
-            {
-                // Apply the resulting rotation to the object
-                transform.rotation = rotation;
-
-                // Set the position of the portal
-                transform.position = portalPosition;
-                // Set portalPlaced as true
-                isPortalPlaced = true;
-            }
-            // If exactly one end is on edge
-            else if(checkEndA ^ checkEndB)
-            {
-                // Determine which end is on the boundary and which is not
-                Vector3 portalEndOnBoundary = checkEndA ? portalEndA : portalEndB;
-                Vector3 portalEndNotOnBoundary = checkEndA ? portalEndB : portalEndA;
-
-                // Get the direction and magnitude to move the portal in the direction of the end that is on boundary
-                direction = GetDirectionToMovePortal(portalEndOnBoundary);
-                magnitude = GetMagnitudeToMovePortal(portalEndNotOnBoundary);
-                portalPosition += direction * magnitude;
-
-                transform.position = portalPosition;
-                transform.rotation = rotation;
-                // Set portalPlaced as true
-                isPortalPlaced = true;
-
-            }
-            // if no ends are on edge
-            else
-            {
-                // The portal cannot be placed. Set its rotation to initial
-                transform.rotation = Quaternion.identity;
-
-                // Set portalPlaced as false
-                isPortalPlaced = false;
-            }
-
-        }
-        else 
-        {
-            // Set portalPlaced as false
-            isPortalPlaced = false;
-        }
+        PlacePortal();
     }
 
-    private void OnMouseDrag()
+    private void GetPortalPlacePostition()
     {
         // Initialize variables to track the nearest object and its distance
         GameObject nearestObject = null;
@@ -173,26 +180,18 @@ public class PlayerController : MonoBehaviour
         Vector2 nearestDirection = Vector2.zero;
         Vector2 nearestHitPoint = Vector2.zero;
 
-        // Get new postion of object at each frame it is being dragged
-        Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-        newPosition = new Vector3(newPosition.x, newPosition.y, transform.position.z);
-
-        // If mouse is clicked and current position of object changes
-        if (isDragging && newPosition != transform.position)
+        // If mouse is clicked  
+        if (isDragging)
         {
-            // Change the position of object to new position
-            transform.position = newPosition;
-
             // Cast a ray at 8 directions divided at each 45 degrees
-            for (float angle = 0; angle < 360; angle += 45) 
+            for (float angle = 0; angle < 360; angle += 45)
             {
                 // Get the direction from angle
                 Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
 
-                
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, targetLayer);
                 if (hit.collider != null)
-                {                                       
+                {
                     // Calculate distance to the hit point
                     float distance = Vector2.Distance(transform.position, hit.point);
 
@@ -217,7 +216,21 @@ public class PlayerController : MonoBehaviour
             else
             {
                 placePortalAt = null;
-            }           
+            }
+        }
+    }
+
+    private void OnMouseDrag()
+    {
+        // Get new position of object at each frame it is being dragged
+        Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+        newPosition = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+
+        // If mouse is clicked and current position of object changes
+        if (isDragging && newPosition != transform.position)
+        {
+            // Change the position of object to new position
+            transform.position = newPosition;
         }
     }
 

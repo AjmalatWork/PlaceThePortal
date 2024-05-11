@@ -83,7 +83,7 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
         isPlay = false;
 
         // Activate portals if portalplaceholders are placed on placeable objects
-        activatePortals();
+        ActivatePortals();
     }
 
     void ResetGame()
@@ -94,7 +94,7 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
         SetOriginalPosition();
 
         // Convert portals back to placeholders on restart
-        deactivatePortals();
+        DeactivatePortals();
 
         // Freeze time on pressing restart
         Time.timeScale = 0f;
@@ -113,7 +113,7 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
 
     }
 
-    private void activatePortals()
+    private void ActivatePortals()
     {        
         // Portal Placeholder object
         portalPlaceholders = GameObject.FindGameObjectsWithTag(TagConstants.PortalPlaceholder);
@@ -146,7 +146,6 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
 
                     // Get script for public object destination
                     portalControllers[i] = portals[i].GetComponent<PortalController>();
-
                 }
 
                 // Deactivate Portal Placeholder
@@ -175,7 +174,7 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
         }
     }
 
-    private void deactivatePortals()
+    private void DeactivatePortals()
     {
         int numberOfPortalPlaceholders = 0;
         int numberOfPortals = 0;
@@ -204,7 +203,7 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
         // If portals are available
         if (numberOfPortals > 0)
         {
-            // Set placeholders as active
+            // Destroy portals
             for (int i = 0; i < numberOfPortals; i++)
             {
                 Destroy(portals[i]);

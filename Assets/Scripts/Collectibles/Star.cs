@@ -5,7 +5,7 @@ public class Star : MonoBehaviour, IResetable, ICollectible
     Vector3 originalPosition;
     Renderer starRenderer;
 
-    private void Start()
+    private void Awake()
     {
         starRenderer = gameObject.GetComponent<Renderer>();
     }

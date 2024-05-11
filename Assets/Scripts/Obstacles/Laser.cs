@@ -69,7 +69,7 @@ public class Laser : MonoBehaviour, IResetable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // When the ball touches the goal, you win!
+        // When the ball touches the laser, you lose!
         if (collision.gameObject.name == NameConstants.Ball)
         {
             Debug.Log("Restart!");

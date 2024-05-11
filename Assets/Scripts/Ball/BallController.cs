@@ -43,7 +43,6 @@ public class BallController : MonoBehaviour, IResetable
             Time.timeScale = 0f;
         }
 
-        // When the ball touches the goal, you win!
         if (collision.gameObject.CompareTag(TagConstants.Collectible))
         {
             starsCollected ++;
