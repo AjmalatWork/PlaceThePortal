@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Star : MonoBehaviour, IResetable, ICollectible
 {
     Vector3 originalPosition;
-    Renderer starRenderer;
+    [NonSerialized] public Renderer starRenderer;
 
     private void Awake()
     {

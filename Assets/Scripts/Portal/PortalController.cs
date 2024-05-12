@@ -2,15 +2,7 @@ using UnityEngine;
 
 public class PortalController : MonoBehaviour
 {
-    public Transform destination;
-    GameObject ball;
-    Rigidbody2D ballRb;
-
-    private void Awake()
-    {
-        ball = GameObject.Find(NameConstants.Ball);
-        ballRb = ball.GetComponent<Rigidbody2D>();
-    }
+    public Transform destination;    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -21,8 +13,11 @@ public class PortalController : MonoBehaviour
 
         if (collision.gameObject.CompareTag(TagConstants.Portable))
         {
-            if (Vector2.Distance(ball.transform.position, transform.position) > 0.3f)
+            if (Vector2.Distance(collision.gameObject.transform.position, transform.position) > 0.3f)
             {
+                // Get rigidbody2d component of colliding object
+                Rigidbody2D portableRb = collision.gameObject.GetComponent<Rigidbody2D>();
+
                 // Get direction of Entry Portal
                 Vector3 entryDirection = transform.up.normalized;
 
@@ -30,16 +25,16 @@ public class PortalController : MonoBehaviour
                 Vector3 exitDirection = destination.transform.up.normalized;
 
                 // Get direction of Ball at the time of entry
-                Vector3 ballEntryDirection = ballRb.velocity.normalized;
+                Vector3 portableEntryDirection = portableRb.velocity.normalized;
 
                 // Calculate direction of Ball at the time of exit
-                Vector3 ballExitDirection = entryDirection + exitDirection + ballEntryDirection;
+                Vector3 portableExitDirection = entryDirection + exitDirection + portableEntryDirection;
 
                 // Change velocity of ball at exit by using the exit ball direction just calculated above
-                ballRb.velocity = ballExitDirection * ballRb.velocity.magnitude;
+                portableRb.velocity = portableExitDirection * portableRb.velocity.magnitude;
 
                 // Change position to exit portal position
-                ball.transform.position = destination.transform.position + ball.transform.localScale.magnitude / 2 * exitDirection;
+                collision.gameObject.transform.position = destination.transform.position + collision.gameObject.transform.localScale.magnitude / 2 * exitDirection;
 
             }
         }
