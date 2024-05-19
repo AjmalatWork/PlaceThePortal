@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Class is singleton as only one playbutton can be present in each level
 public class PlayButtonController : MonoBehaviour, IClickableUI
@@ -12,6 +13,7 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
     GameObject[] portalPlaceholders;
     PortalController[] portalControllers;
     PlayerController[] playerControllers;
+    Image image;
 
     List<IResetable> resetableObjects = new();
     public static PlayButtonController Instance { get; private set; }
@@ -26,6 +28,8 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
         {
             Destroy(gameObject); 
         }
+
+        image = GetComponent<Image>();
     }
 
     public void RegisterResetableObject(IResetable resetableObject)
@@ -103,10 +107,12 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
     {
         if (isPlay)
         {
+            image.sprite = Resources.Load<Sprite>(FileConstants.Replay);
             StartGame();
         }
         else
         {
+            image.sprite = Resources.Load<Sprite>(FileConstants.Play);
             ResetGame();
         }
 

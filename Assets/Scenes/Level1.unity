@@ -304,15 +304,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 217223542212983769, guid: 00f0a89a8eda0444cbb92cd02b45f727, type: 3}
       propertyPath: m_Color.b
-      value: 0.2028302
+      value: 0.37112856
       objectReference: {fileID: 0}
     - target: {fileID: 217223542212983769, guid: 00f0a89a8eda0444cbb92cd02b45f727, type: 3}
       propertyPath: m_Color.g
-      value: 0.65943706
+      value: 0.4281608
       objectReference: {fileID: 0}
     - target: {fileID: 217223542212983769, guid: 00f0a89a8eda0444cbb92cd02b45f727, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.5660378
       objectReference: {fileID: 0}
     - target: {fileID: 2027398314823389842, guid: 00f0a89a8eda0444cbb92cd02b45f727, type: 3}
       propertyPath: m_Pivot.x
@@ -550,7 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71de3a5e4889f5746bf84ba98709bd95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terminalVelocity: 15
+  terminalVelocitySettings: {fileID: 0}
 --- !u!1001 &1874248687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -561,15 +561,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 217223542212983769, guid: 00f0a89a8eda0444cbb92cd02b45f727, type: 3}
       propertyPath: m_Color.b
-      value: 0.83225477
+      value: 0.16978301
       objectReference: {fileID: 0}
     - target: {fileID: 217223542212983769, guid: 00f0a89a8eda0444cbb92cd02b45f727, type: 3}
       propertyPath: m_Color.g
-      value: 0.13679248
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 217223542212983769, guid: 00f0a89a8eda0444cbb92cd02b45f727, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.1372549
       objectReference: {fileID: 0}
     - target: {fileID: 2027398314823389842, guid: 00f0a89a8eda0444cbb92cd02b45f727, type: 3}
       propertyPath: m_Pivot.x

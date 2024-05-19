@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,6 +47,7 @@ public class UIManager : MonoBehaviour
 
     private void OnButtonClick(Button button)
     {
+        Debug.Log("Added Listener to " + button);
         foreach (IClickableUI clickable in clickableUIObjects)
         {
             if (clickable is MonoBehaviour monoBehaviour && monoBehaviour.gameObject == button.gameObject)
