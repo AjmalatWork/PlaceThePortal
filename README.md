@@ -1,48 +1,5 @@
-# PlaceThePortal
- A puzzle game made in unity for Android
+#PlaceThePortal - A puzzle game made in unity.
 
-All scripts are in the folder Assets->Scripts
-Below is the rundown for what each script does and what object is is attached to:
+All scripts are in the folder Assets -> Scripts.
 
-// In this format
-Script Name
-Attached To Object
-Function
-
-**********************************************************************
-BallController           
-Ball                      
-To check if victory condition is achieved and collection of stars by Ball
-**********************************************************************
-PortalController            
-Portal                    
-For the logic of teleportation between portals conserving the direction and velocity of the object
-**********************************************************************
-PortalIconController        
-PortalIcon                
-Clicking on Portal Icon generates two Portal Placeholders
-**********************************************************************
-PlayerController            
-PortalPlaceholder         
-For the logic of dragging and placing the placeholders
-**********************************************************************
-PlayButtonController        
-PlayButton                
-For the logic of play and restart to freeze and resume time and reset all positions
-**********************************************************************
-CameraController        
-Camera              
-To control the camera movement for larger levels
-Camera is controlled in 3 ways:
-1. Move on player drag
-2. Move with ball
-3. Move with Portal placeholder if dragging
-**********************************************************************
-Laser      
-LaserGun                
-For the logic of drawing the laser and switching it on and off
-**********************************************************************
-LaserButton      
-LaserButton                
-For the logic of pressing the button and controlling the laser with it
-**********************************************************************
+Refer to the TDD document to get a detailed overview of the technical design of the project.
