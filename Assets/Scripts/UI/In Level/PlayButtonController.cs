@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Class is singleton as only one playbutton can be present in each level
-public class PlayButtonController : MonoBehaviour, IClickableUI
+public class PlayButtonController : BaseUIButton, IClickableUI
 {
     public GameObject portal;
     [NonSerialized] public bool isPlay = true;
@@ -52,15 +52,6 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
 
     }
 
-    private void OnEnable()
-    {
-        UIManager.Instance.RegisterClickableObject(this);
-    }
-    private void OnDisable()
-    {
-        UIManager.Instance.UnregisterClickableObject(this);
-    }
-
     private void GetOriginalPosition()
     {
         // Get original state of resetable objects
@@ -103,7 +94,7 @@ public class PlayButtonController : MonoBehaviour, IClickableUI
         Time.timeScale = 0f;
     }
 
-    public void OnClick()
+    public new void OnClick()
     {
         if (isPlay)
         {

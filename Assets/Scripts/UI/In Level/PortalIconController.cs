@@ -1,22 +1,13 @@
 using UnityEngine;
 
-public class PortalIconController : MonoBehaviour, IClickableUI
+public class PortalIconController : BaseUIButton, IClickableUI
 {
     public GameObject portalX;
     public GameObject portalY;
     public Vector3 portalXPosition;
     public Vector3 portalYPosition;
 
-    private void OnEnable()
-    {
-        UIManager.Instance.RegisterClickableObject(this);
-    }
-    private void OnDisable()
-    {
-        UIManager.Instance.UnregisterClickableObject(this);
-    }
-
-    public void OnClick()
+    public new void OnClick()
     {
         // Deactivate portal icon on click and create two portal placeholders on screen
         gameObject.SetActive(false);

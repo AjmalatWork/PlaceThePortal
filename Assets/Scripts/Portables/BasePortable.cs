@@ -48,4 +48,10 @@ public class BasePortable : MonoBehaviour, IResetable
         transform.rotation = originalRotation;
         objRb.velocity = originalVelocity;
     }
+
+    public void StopMotion()
+    {
+        RigidbodyConstraints2D currentConstraints = objRb.constraints;
+        objRb.constraints = RigidbodyConstraints2D.FreezePosition;
+    }
 }
