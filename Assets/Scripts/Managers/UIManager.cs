@@ -41,6 +41,10 @@ public class UIManager : MonoBehaviour
     {
         foreach (Button button in buttons)
         {
+            if(button == null) 
+            {
+                continue;
+            }
             button.onClick.AddListener(() => OnButtonClick(button));
         }
     }
