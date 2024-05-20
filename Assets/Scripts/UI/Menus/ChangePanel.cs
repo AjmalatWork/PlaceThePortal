@@ -7,8 +7,6 @@ public class ChangePanel : BaseUIButton, IClickableUI
 
     public new void OnClick()
     {
-        Debug.Log(currentPanel);
-        Debug.Log(nextPanel);
         currentPanel.gameObject.SetActive(false);
         nextPanel.gameObject.SetActive(true);
     }
