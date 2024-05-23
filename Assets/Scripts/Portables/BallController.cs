@@ -13,7 +13,7 @@ public class BallController : BasePortable, IResetable
         if (collision.gameObject.CompareTag(TagConstants.Goal))
         {
             base.StopMotion();
-            Invoke(nameof(CallLevelEnd),1f);
+            Invoke(nameof(CallLevelEnd),0.2f);
         }
 
         if (collision.gameObject.CompareTag(TagConstants.Collectible))

@@ -52,7 +52,6 @@ public class BasePortable : MonoBehaviour, IResetable
     public void StopMotion()
     {
         RigidbodyConstraints2D currentConstraints = objRb.constraints;
-        objRb.constraints = RigidbodyConstraints2D.FreezePosition;
-        objRb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        objRb.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 }

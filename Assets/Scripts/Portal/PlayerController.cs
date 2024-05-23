@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = rotation;
 
             // Set the position of the portal
-            transform.position = portalPosition;
+            transform.position = portalPosition + portalDirection.normalized * 0.05f;
             // Set portalPlaced as true
             isPortalPlaced = true;
         }
