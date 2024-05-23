@@ -53,5 +53,6 @@ public class BasePortable : MonoBehaviour, IResetable
     {
         RigidbodyConstraints2D currentConstraints = objRb.constraints;
         objRb.constraints = RigidbodyConstraints2D.FreezePosition;
+        objRb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }
