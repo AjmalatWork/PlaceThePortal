@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
             magnitude = GetMagnitudeToMovePortal(portalEndNotOnBoundary);
             portalPosition += direction * magnitude;
 
-            transform.position = portalPosition;
+            transform.position = portalPosition + portalDirection.normalized * 0.05f;
             transform.rotation = rotation;
             // Set portalPlaced as true
             isPortalPlaced = true;
