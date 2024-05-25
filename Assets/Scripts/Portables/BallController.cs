@@ -9,25 +9,33 @@ public class BallController : BasePortable, IResetable
     public Transform headTransform;
 
     bool endLevel = false;
-    float elapsedTime = 0f;
-    float duration = 2.0f; // Time it takes to move from A to B
+    public float moveSpeed = 15f;
+    public float rotateSpeed = 15f;
+    SpriteRenderer bodyRenderer;
+    GameObject body;
+    public GameObject happyBody;
+
+    private void Start()
+    {
+        body = headTransform.parent.gameObject;
+        bodyRenderer = body.GetComponent<SpriteRenderer>();
+    }
 
     private void Update()
     {
         if (endLevel) 
         {
-            MoveHeadToBody();
+            Invoke(nameof(MoveHeadToBody),0.2f);
             base.StopMotion();
-            //Invoke(nameof(CallLevelEnd), 1f);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // When the ball touches the goal, you win!
         if (collision.gameObject.CompareTag(TagConstants.Goal))
         {            
             endLevel = true;
+            inLevelPanel.gameObject.SetActive(false);
         }
 
         if (collision.gameObject.CompareTag(TagConstants.Collectible))
@@ -50,14 +58,21 @@ public class BallController : BasePortable, IResetable
 
     void MoveHeadToBody()
     {        
-        elapsedTime += Time.deltaTime;
-        float t = elapsedTime / duration;
-        transform.position = Vector3.Lerp(headTransform.position, transform.position, t);
+        transform.position = Vector3.MoveTowards(transform.position, headTransform.position, Time.deltaTime * moveSpeed);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.identity, Time.deltaTime * rotateSpeed);
+        Invoke(nameof(MakeHappy), 0.5f);       
+    }
+
+    void MakeHappy()
+    {
+        bodyRenderer.enabled = false;
+        happyBody.SetActive(true);
+        gameObject.SetActive(false);
+        Invoke(nameof(CallLevelEnd), 1f);
     }
 
     void CallLevelEnd()
-    {        
-        inLevelPanel.gameObject.SetActive(false);
+    {                
         levelEndPanel.gameObject.SetActive(true);        
     }
 
