@@ -61,12 +61,19 @@ public class CameraController : MonoBehaviour, IResetable
             }
             else
             {
-                playerController = hit.collider.gameObject.GetComponent<PlayerController>();
-                if (playerController.isDragging)
+                try
                 {
-                    Vector3 mouseWorldPositon = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    originX = mouseWorldPositon.x;
-                    shouldMoveWithPortal = true;               
+                    playerController = hit.collider.gameObject.GetComponent<PlayerController>();                  
+                    if (playerController.isDragging)
+                    {
+                        Vector3 mouseWorldPositon = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        originX = mouseWorldPositon.x;
+                        shouldMoveWithPortal = true;               
+                    }
+                }
+                catch
+                {
+                    return;
                 }
             }
         }
