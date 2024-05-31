@@ -138,7 +138,8 @@ public class PlayButtonController : BaseUIButton, IClickableUI
                 if (playerControllers[i].isPortalPlaced)
                 {
                     // Create portal at the place of the portal placeholder
-                    portals[i] = Instantiate(portal, portalPlaceholders[i].transform.position, portalPlaceholders[i].transform.rotation);
+                    portals[i] = ObjectPooler.Instance.SpawnFromPool("Portal", portalPlaceholders[i].transform.position, portalPlaceholders[i].transform.rotation);
+                    //portals[i] = Instantiate(portal, portalPlaceholders[i].transform.position, portalPlaceholders[i].transform.rotation);
 
                     // Get script for public object destination
                     portalControllers[i] = portals[i].GetComponent<PortalController>();
@@ -202,7 +203,8 @@ public class PlayButtonController : BaseUIButton, IClickableUI
             // Destroy portals
             for (int i = 0; i < numberOfPortals; i++)
             {
-                Destroy(portals[i]);
+                //Destroy(portals[i]);
+                portals[i].SetActive(false);
             }
         }
     }
