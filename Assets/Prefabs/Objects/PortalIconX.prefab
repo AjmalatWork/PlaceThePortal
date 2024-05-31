@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5070911648372768152}
   - component: {fileID: 4428711788163184511}
   - component: {fileID: 1087007151516186041}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PortalIconX
   m_TagString: PortalPlaceholder
   m_Icon: {fileID: 0}
@@ -146,5 +146,8 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
+  portalLayer:
+    serializedVersion: 2
+    m_Bits: 64
   distanceToSnap: 1.2
   portal: {fileID: 1973725480156956171, guid: de190f3b7247855468506fcf8183001e, type: 3}

@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     // Variables needed in inspector
     public LayerMask targetLayer;
+    public LayerMask portalLayer;
     public float distanceToSnap;
     public GameObject portal;
     [NonSerialized] public bool isDragging = false;
@@ -86,6 +88,14 @@ public class PlayerController : MonoBehaviour
         }        
     }
 
+    private bool IsOverlapWithExistingPortal()
+    {        
+        Vector2 portalSize = new Vector2(transform.localScale.x, 0.5f);
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(portalPosition, portalSize, transform.rotation.eulerAngles.z, portalLayer);        
+        hitColliders = hitColliders.Where(collider => collider.gameObject != gameObject).ToArray();
+        return hitColliders.Length > 0;
+    }
+
     private void PlacePortal()
     {
         Vector3 direction;
@@ -101,6 +111,13 @@ public class PlayerController : MonoBehaviour
         // Don't place portal if inside another collider
         bool unplacePortal = UnplacePortal();
         if (unplacePortal)
+        {
+            isPortalPlaced = false;
+            return;
+        }
+
+        // Check for overlap with existing portals
+        if (IsOverlapWithExistingPortal())
         {
             isPortalPlaced = false;
             return;
