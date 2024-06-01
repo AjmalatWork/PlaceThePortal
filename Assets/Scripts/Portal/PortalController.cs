@@ -45,5 +45,12 @@ public class PortalController : MonoBehaviour
 
             }
         }
+
+        if (collision.gameObject.CompareTag(TagConstants.Laser))
+        {
+            Laser laser = collision.gameObject.GetComponent<Laser>();
+            LayerMask layerMask = ~(1 << gameObject.layer);
+            laser.TeleportLaser(destination.transform.position, destination.transform.up.normalized, layerMask);
+        }
     }
 }
