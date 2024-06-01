@@ -138,7 +138,7 @@ public class PlayButtonController : BaseUIButton, IClickableUI
                 if (playerControllers[i].isPortalPlaced)
                 {
                     // Create portal at the place of the portal placeholder
-                    portals[i] = ObjectPooler.Instance.SpawnFromPool("Portal", portalPlaceholders[i].transform.position, portalPlaceholders[i].transform.rotation);
+                    portals[i] = ObjectPooler.Instance.SpawnFromPool(NameConstants.Portal, portalPlaceholders[i].transform.position, portalPlaceholders[i].transform.rotation);
 
                     // Get script for public object destination
                     portalControllers[i] = portals[i].GetComponent<PortalController>();

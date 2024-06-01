@@ -2,7 +2,13 @@ using UnityEngine;
 
 public class PortalController : MonoBehaviour
 {
-    public Transform destination;    
+    public Transform destination;
+    AudioSource teleportAudio;
+
+    private void Awake()
+    {
+        teleportAudio = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,6 +21,7 @@ public class PortalController : MonoBehaviour
         {
             if (Vector2.Distance(collision.gameObject.transform.position, transform.position) > 0.3f)
             {
+                teleportAudio.Play();
                 // Get rigidbody2d component of colliding object
                 Rigidbody2D portableRb = collision.gameObject.GetComponent<Rigidbody2D>();
 

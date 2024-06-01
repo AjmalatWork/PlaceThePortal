@@ -38,7 +38,7 @@ public class Star : MonoBehaviour, IResetable, ICollectible
     public void OnCollect()
     {
         starRenderer.enabled = false;
-        ParticlePooler.Instance.SpawnFromPool("StarBurst", transform.position, Quaternion.identity);
+        ParticlePooler.Instance.SpawnFromPool(NameConstants.StarBurst, transform.position, Quaternion.identity);
         starAudio.Play(); 
     }
 }

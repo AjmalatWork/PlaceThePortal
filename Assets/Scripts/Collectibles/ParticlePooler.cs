@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticlePooler : MonoBehaviour
+public class ParticlePooler : MonoBehaviour, IResetable
 {
     public static ParticlePooler Instance;
 
@@ -37,6 +37,16 @@ public class ParticlePooler : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        PlayButtonController.Instance.RegisterResetableObject(this);
+    }
+
+    private void OnDisable()
+    {
+        PlayButtonController.Instance.UnregisterResetableObject(this);
+    }
+
     public ParticleSystem SpawnFromPool(string name, Vector3 position, Quaternion rotation)
     {
         if (!poolDictionary.ContainsKey(name))
@@ -55,5 +65,22 @@ public class ParticlePooler : MonoBehaviour
         poolDictionary[name].Enqueue(objectToSpawn);
 
         return objectToSpawn;
+    }
+
+    public void GetOriginalState()
+    {
+        return;
+    }
+
+    public void SetOriginalState()
+    {
+        foreach (var pool in poolDictionary)
+        {
+            foreach (var particleSystem in pool.Value)
+            {
+                particleSystem.Stop();
+                particleSystem.Clear();
+            }
+        }
     }
 }
