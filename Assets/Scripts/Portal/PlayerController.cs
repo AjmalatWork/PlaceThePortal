@@ -20,6 +20,20 @@ public class PlayerController : MonoBehaviour
     readonly float endThreshold = 0.2f;
     Vector3 portalEndA;
     Vector3 portalEndB;
+    readonly float portalOffset = 0.25f;
+
+    SpriteRenderer portalIconSR;
+    float portalSizeX;
+    float portalSizeY;
+    Bounds portalBounds;
+
+    private void Awake()
+    {
+        portalIconSR = gameObject.GetComponent<SpriteRenderer>();
+        portalBounds = portalIconSR.sprite.bounds;
+        portalSizeX = portalBounds.size.x;
+        portalSizeY = portalBounds.size.y;
+    }
 
     private void OnMouseDown()
     {
@@ -31,6 +45,9 @@ public class PlayerController : MonoBehaviour
 
         // Set dragging as true
         isDragging = true;
+
+        isPortalPlaced = false;
+        SetTransparency();
     }
 
     private bool CheckEnd( Vector3 portalEnd)
@@ -69,10 +86,10 @@ public class PlayerController : MonoBehaviour
     private void GetPortalEnds(float angle)
     {        
         // Endpoints are ( x +- rcosQ, y +- rsinQ) and then move a little in the direction of the portal so that the ray hits the collider
-        portalEndA = new Vector3(portalPosition.x + transform.localScale.x / 2 * Mathf.Cos(angle * Mathf.Deg2Rad), portalPosition.y + transform.localScale.x / 2 * Mathf.Sin(angle * Mathf.Deg2Rad), 0);
-        portalEndA = portalEndA + transform.localScale.y / 2 * portalDirection;
-        portalEndB = new Vector3(portalPosition.x - transform.localScale.x / 2 * Mathf.Cos(angle * Mathf.Deg2Rad), portalPosition.y - transform.localScale.x / 2 * Mathf.Sin(angle * Mathf.Deg2Rad), 0);
-        portalEndB = portalEndB + transform.localScale.y / 2 * portalDirection;
+        portalEndA = new Vector3(portalPosition.x + portalSizeX / 2 * Mathf.Cos(angle * Mathf.Deg2Rad), portalPosition.y + portalSizeX / 2 * Mathf.Sin(angle * Mathf.Deg2Rad), 0);
+        portalEndA = portalEndA + portalSizeY / 2 * portalDirection;
+        portalEndB = new Vector3(portalPosition.x - portalSizeX / 2 * Mathf.Cos(angle * Mathf.Deg2Rad), portalPosition.y - portalSizeX / 2 * Mathf.Sin(angle * Mathf.Deg2Rad), 0);
+        portalEndB = portalEndB + portalSizeY / 2 * portalDirection;
     }
 
     //Don't place portal if position is inside another object's collider
@@ -114,14 +131,14 @@ public class PlayerController : MonoBehaviour
         {
             isPortalPlaced = false;
             return;
-        }
+        }        
 
         // Check for overlap with existing portals
         if (IsOverlapWithExistingPortal())
         {
             isPortalPlaced = false;
             return;
-        }
+        }        
 
         // Calculate the rotation angle around the Z-axis (yaw) using atan2
         float angle = Mathf.Atan2(portalDirection.y, portalDirection.x) * Mathf.Rad2Deg - 90;
@@ -143,7 +160,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = rotation;
 
             // Set the position of the portal
-            transform.position = portalPosition + portalDirection.normalized * 0.05f;
+            transform.position = portalPosition + portalDirection.normalized * portalOffset;
             // Set portalPlaced as true
             isPortalPlaced = true;
         }
@@ -159,7 +176,7 @@ public class PlayerController : MonoBehaviour
             magnitude = GetMagnitudeToMovePortal(portalEndNotOnBoundary);
             portalPosition += direction * magnitude;
 
-            transform.position = portalPosition + portalDirection.normalized * 0.05f;
+            transform.position = portalPosition + portalDirection.normalized * portalOffset;
             transform.rotation = rotation;
             // Set portalPlaced as true
             isPortalPlaced = true;
@@ -178,7 +195,7 @@ public class PlayerController : MonoBehaviour
     private void OnMouseUp()
     {
         GetPortalPlacePostition();
-
+        
         // Decrease the scale of the object to show click was released
         transform.localScale /= 1.2f;
 
@@ -186,6 +203,23 @@ public class PlayerController : MonoBehaviour
         isDragging = false;
 
         PlacePortal();
+
+        SetTransparency();
+    }
+
+    void SetTransparency()
+    {
+        // If portal is placed, make it opaque otherwise transparent
+        Color color = portalIconSR.color;
+        if (isPortalPlaced)
+        {
+            color.a = ValueConstants.alphaOpaque;
+        }
+        else
+        {
+            color.a = ValueConstants.alphaTransparent;
+        }
+        portalIconSR.color = color;
     }
 
     private void GetPortalPlacePostition()

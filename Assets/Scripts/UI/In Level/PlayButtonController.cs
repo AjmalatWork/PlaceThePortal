@@ -140,6 +140,11 @@ public class PlayButtonController : BaseUIButton, IClickableUI
                     // Create portal at the place of the portal placeholder
                     portals[i] = ObjectPooler.Instance.SpawnFromPool(NameConstants.Portal, portalPlaceholders[i].transform.position, portalPlaceholders[i].transform.rotation);
 
+                    // Get the same sprite as the portal placeholder to the portal
+                    SpriteRenderer portalPlaceholderSR = portalPlaceholders[i].GetComponent<SpriteRenderer>();
+                    SpriteRenderer portalSR = portals[i].GetComponent<SpriteRenderer>();
+                    portalSR.sprite = portalPlaceholderSR.sprite;
+
                     // Get script for public object destination
                     portalControllers[i] = portals[i].GetComponent<PortalController>();
                 }

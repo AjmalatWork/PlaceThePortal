@@ -22,6 +22,7 @@ public class PortalIconController : BaseUIButton, IClickableUI
         // Deactivate portal icon on click and create two portal placeholders on screen
         PIImage.enabled = false;
         button.interactable = false;
+
         Instantiate(portalX, portalXPosition, portalX.transform.rotation);
         Instantiate(portalY, portalYPosition, portalY.transform.rotation);
     }

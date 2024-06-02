@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pools:
   - name: Portal
-    prefab: {fileID: 1973725480156956171, guid: de190f3b7247855468506fcf8183001e, type: 3}
+    prefab: {fileID: 1973725480156956171, guid: 4abd2676b06339b4c980c81f1cbaef8e, type: 3}
     size: 6

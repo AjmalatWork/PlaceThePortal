@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!224 &293304410 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8259366425881695062, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+  m_PrefabInstance: {fileID: 1010622175565030063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &847623715
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -729,6 +734,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1682646465868893980, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+      propertyPath: m_Name
+      value: PortalIconOrange
+      objectReference: {fileID: 0}
     - target: {fileID: 1785442214360512846, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -813,6 +822,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3781512181407665379, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+      propertyPath: portalX
+      value: 
+      objectReference: {fileID: 5248898416662585010, guid: 6d66c507097409a4889bbfa323bb875a, type: 3}
+    - target: {fileID: 3781512181407665379, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+      propertyPath: portalY
+      value: 
+      objectReference: {fileID: 5248898416662585010, guid: 6d66c507097409a4889bbfa323bb875a, type: 3}
     - target: {fileID: 3781512181407665379, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
       propertyPath: portalXPosition.y
       value: 1
@@ -1010,6 +1027,14 @@ PrefabInstance:
       value: 1792
       objectReference: {fileID: 0}
     - target: {fileID: 5957646281756413517, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+      propertyPath: portalX
+      value: 
+      objectReference: {fileID: 5248898416662585010, guid: 592ba647927833240acae78ad936e580, type: 3}
+    - target: {fileID: 5957646281756413517, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+      propertyPath: portalY
+      value: 
+      objectReference: {fileID: 5248898416662585010, guid: 592ba647927833240acae78ad936e580, type: 3}
+    - target: {fileID: 5957646281756413517, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
       propertyPath: portalXPosition.y
       value: 3
       objectReference: {fileID: 0}
@@ -1170,6 +1195,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7814694523708458821, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+      propertyPath: m_Name
+      value: PortalIconBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 7814694523708458821, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -1220,6 +1249,10 @@ PrefabInstance:
     - target: {fileID: 8099292951261248255, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -822
+      objectReference: {fileID: 0}
+    - target: {fileID: 8248424390739730007, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+      propertyPath: m_Name
+      value: PortalIconGreen
       objectReference: {fileID: 0}
     - target: {fileID: 8248424390739730007, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
       propertyPath: m_IsActive
@@ -1369,7 +1402,7 @@ PrefabInstance:
     - target: {fileID: -3649661403412716364, guid: d0dcbcd3961667b458988e43b0b8f3ee, type: 3}
       propertyPath: inLevelPanel
       value: 
-      objectReference: {fileID: 1010622175565030064}
+      objectReference: {fileID: 293304410}
     - target: {fileID: -3649661403412716364, guid: d0dcbcd3961667b458988e43b0b8f3ee, type: 3}
       propertyPath: headTransform
       value: 
@@ -1377,7 +1410,7 @@ PrefabInstance:
     - target: {fileID: -3649661403412716364, guid: d0dcbcd3961667b458988e43b0b8f3ee, type: 3}
       propertyPath: levelEndPanel
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1010622175565030064}
     - target: {fileID: 2794929201315114177, guid: d0dcbcd3961667b458988e43b0b8f3ee, type: 3}
       propertyPath: m_SortingOrder
       value: 1
