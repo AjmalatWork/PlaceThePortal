@@ -6,7 +6,7 @@ public class BackButton : BaseUIButton, IClickableUI
 
     public new void OnClick()
     {
-        transform.parent.gameObject.SetActive(false);
+        transform.parent.parent.gameObject.SetActive(false);
         InLevelPanel.gameObject.SetActive(true);
         if(!PlayButtonController.Instance.isPlay)
         {
