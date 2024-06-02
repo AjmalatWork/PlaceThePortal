@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BallController : BasePortable, IResetable
 {
@@ -72,7 +73,10 @@ public class BallController : BasePortable, IResetable
     }
 
     void CallLevelEnd()
-    {                
+    {
+        Image endImage = levelEndPanel.GetComponent<Image>();
+        String imageName = FileConstants.End + starsCollected;
+        endImage.sprite = Resources.Load<Sprite>(imageName);
         levelEndPanel.gameObject.SetActive(true);        
     }
 
