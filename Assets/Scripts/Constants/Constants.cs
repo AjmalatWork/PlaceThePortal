@@ -22,6 +22,7 @@ public static class NameConstants
     public const string Ball        = "Ball";
     public const string StarBurst   = "StarBurst";
     public const string Portal      = "Portal";
+    public const string PortalFX    = "PortalFX";
     public const string LaserChild  = "LaserChild";
     public const string Orange      = "Orange";
     public const string Green       = "Green";
@@ -42,6 +43,13 @@ public static class TagConstants
     public const string Laser               = "Laser";
 }
 
+public static class Colors
+{
+    public const string Orange  = "#D0420C";
+    public const string Green   = "#00A410";
+    public const string Blue    = "#2D66E1";
+}
+
 public static class Mapping
 {
     public static readonly Dictionary<string, string> PortalColorToSprite = new()
@@ -56,5 +64,12 @@ public static class Mapping
         { NameConstants.Orange, FileConstants.PortalAnim + NameConstants.Orange },
         { NameConstants.Blue, FileConstants.PortalAnim + NameConstants.Blue },
         { NameConstants.Green, FileConstants.PortalAnim + NameConstants.Green },
+    };
+
+    public static readonly Dictionary<string, string> ColorNameToHex = new()
+    {
+        { NameConstants.Orange, Colors.Orange },
+        { NameConstants.Blue, Colors.Blue },
+        { NameConstants.Green, Colors.Green },
     };
 }

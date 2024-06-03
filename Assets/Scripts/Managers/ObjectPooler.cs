@@ -71,8 +71,6 @@ public class ObjectPooler : MonoBehaviour
         SpriteRenderer portalSR = portal.GetComponent<SpriteRenderer>();        
         portalSR.sprite = Resources.Load<Sprite>(Mapping.PortalColorToSprite[playerController.color]); 
 
-        Debug.Log("ObjectPool PortalSprite " + portalSR.sprite.name);
-
         portalAnimator.enabled = true;
         portalAnimator.color = playerController.color;
         portal.SetActive(true);

@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: StarBurst
+  - name: StarBurst
     prefab: {fileID: 1048590558762438117, guid: a5918f8f4fe4708499830885b7e4f75d, type: 3}
     size: 3
+  - name: Portal
+    prefab: {fileID: 1048590558762438117, guid: 4bdef36f72fcfd14a997b03135a79d20, type: 3}
+    size: 6

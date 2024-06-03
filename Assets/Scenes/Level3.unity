@@ -1632,7 +1632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8785566228462711300, guid: df7c3ecb7691aca45a22086b6d881de0, type: 3}
       propertyPath: pools.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8785566228462711300, guid: df7c3ecb7691aca45a22086b6d881de0, type: 3}
       propertyPath: pools.Array.data[0].name
@@ -1640,16 +1640,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8785566228462711300, guid: df7c3ecb7691aca45a22086b6d881de0, type: 3}
       propertyPath: pools.Array.data[1].name
-      value: Portal
+      value: PortalFX
       objectReference: {fileID: 0}
     - target: {fileID: 8785566228462711300, guid: df7c3ecb7691aca45a22086b6d881de0, type: 3}
       propertyPath: pools.Array.data[1].size
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8785566228462711300, guid: df7c3ecb7691aca45a22086b6d881de0, type: 3}
       propertyPath: pools.Array.data[1].prefab
       value: 
-      objectReference: {fileID: 1048590558762438117, guid: a5918f8f4fe4708499830885b7e4f75d, type: 3}
+      objectReference: {fileID: 1048590558762438117, guid: 4bdef36f72fcfd14a997b03135a79d20, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
