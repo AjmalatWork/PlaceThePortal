@@ -21,7 +21,7 @@ public class PortalController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
-    {
+    {        
         if(destination == null)
         {
             return;
@@ -29,7 +29,7 @@ public class PortalController : MonoBehaviour
 
         if (collision.gameObject.CompareTag(TagConstants.Portable))
         {
-            if (Vector2.Distance(collision.gameObject.transform.position, transform.position) > 0.3f)
+            if (Vector2.Distance(collision.gameObject.transform.position, transform.position) > 0.29f)
             {
                 teleportAudio.Play();
                 // Get rigidbody2d component of colliding object
