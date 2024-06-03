@@ -37,7 +37,7 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    public GameObject SpawnFromPool(string name, Vector3 position, Quaternion rotation)
+    public GameObject SpawnFromPool(string name, Vector3 position, Quaternion rotation, PlayerController playerController = null)
     {
         if (!poolDictionary.ContainsKey(name))
         {
@@ -46,12 +46,37 @@ public class ObjectPooler : MonoBehaviour
         }
 
         GameObject objectToSpawn = poolDictionary[name].Dequeue();
-        objectToSpawn.transform.position = position;
-        objectToSpawn.transform.rotation = rotation;
-        objectToSpawn.gameObject.SetActive(true);
+        objectToSpawn.transform.SetPositionAndRotation(position, rotation);
 
+        if (name == NameConstants.Portal)
+        {
+            InitPortal(objectToSpawn, playerController);
+        }
+
+        if(!objectToSpawn.activeSelf)
+        {
+            objectToSpawn.SetActive(true);
+        }                        
         poolDictionary[name].Enqueue(objectToSpawn);
 
         return objectToSpawn;
     }
+
+    void InitPortal(GameObject portal, PlayerController playerController) 
+    {
+        // Deactivate the PortalAnimator to prevent OnEnable from being called
+        PortalAnimator portalAnimator = portal.GetComponent<PortalAnimator>();
+        portalAnimator.enabled = false;
+
+        SpriteRenderer portalSR = portal.GetComponent<SpriteRenderer>();        
+        portalSR.sprite = Resources.Load<Sprite>(Mapping.PortalColorToSprite[playerController.color]); 
+
+        Debug.Log("ObjectPool PortalSprite " + portalSR.sprite.name);
+
+        portalAnimator.enabled = true;
+        portalAnimator.color = playerController.color;
+        portal.SetActive(true);
+        portalAnimator.AnimatePortal();
+    }
+
 }

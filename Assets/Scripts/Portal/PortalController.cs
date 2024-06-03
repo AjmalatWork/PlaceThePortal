@@ -11,13 +11,6 @@ public class PortalController : MonoBehaviour
         teleportAudio = GetComponent<AudioSource>();           
     }
 
-    private void OnEnable()
-    {
-
-    }
-
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(destination == null)

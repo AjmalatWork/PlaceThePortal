@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask portalLayer;
     public float distanceToSnap;
     public GameObject portal;
+    public string color;
     [NonSerialized] public bool isDragging = false;
     [NonSerialized] public bool isPortalPlaced = false;
 

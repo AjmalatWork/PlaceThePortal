@@ -151,3 +151,4 @@ MonoBehaviour:
     m_Bits: 64
   distanceToSnap: 1.2
   portal: {fileID: 1973725480156956171, guid: 4abd2676b06339b4c980c81f1cbaef8e, type: 3}
+  color: Orange

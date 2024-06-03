@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public static class FileConstants
 {
     public const string Play            = "Play";
@@ -6,6 +8,7 @@ public static class FileConstants
     public const string End             = "End";
     public const string PortalIcon      = "PortalIcon";
     public const string PortalAnim      = "PortalAnim_";
+    public const string Portal          = "Portal";
 }
 
 public static class ValueConstants
@@ -37,4 +40,21 @@ public static class TagConstants
     public const string PlayButton          = "PlayButton";
     public const string Button              = "Button";
     public const string Laser               = "Laser";
+}
+
+public static class Mapping
+{
+    public static readonly Dictionary<string, string> PortalColorToSprite = new()
+    {
+        { NameConstants.Orange, FileConstants.PortalIcon + NameConstants.Orange },
+        { NameConstants.Blue, FileConstants.PortalIcon + NameConstants.Blue },
+        { NameConstants.Green, FileConstants.PortalIcon + NameConstants.Green },
+    };
+
+    public static readonly Dictionary<string, string> PortalColorToAnim = new()
+    {
+        { NameConstants.Orange, FileConstants.PortalAnim + NameConstants.Orange },
+        { NameConstants.Blue, FileConstants.PortalAnim + NameConstants.Blue },
+        { NameConstants.Green, FileConstants.PortalAnim + NameConstants.Green },
+    };
 }
