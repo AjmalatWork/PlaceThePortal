@@ -34,13 +34,13 @@ public class PortalAnimator : MonoBehaviour
         switch (stateName)
         {
             case FileConstants.PortalAnim + NameConstants.Orange:
-                animator.SetTrigger("Orange");
+                animator.SetTrigger(NameConstants.Orange);
                 break;
             case FileConstants.PortalAnim + NameConstants.Blue:
-                animator.SetTrigger("Blue");
+                animator.SetTrigger(NameConstants.Blue);
                 break;
             case FileConstants.PortalAnim + NameConstants.Green:
-                animator.SetTrigger("Green");
+                animator.SetTrigger(NameConstants.Green);
                 break;
             default:
                 Debug.LogWarning("Unknown animation state: " + stateName);

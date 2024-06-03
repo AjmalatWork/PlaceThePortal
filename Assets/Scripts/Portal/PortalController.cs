@@ -5,10 +5,19 @@ public class PortalController : MonoBehaviour
     public Transform destination;
 
     AudioSource teleportAudio;
+    BoxCollider2D portalCollider;
 
     private void Awake()
     {
-        teleportAudio = GetComponent<AudioSource>();           
+        teleportAudio = GetComponent<AudioSource>();
+        portalCollider = GetComponent<BoxCollider2D>();
+    }
+
+    private void OnEnable()
+    {
+        // This fixes a bug where sometimes the object did not detect collision with portal
+        portalCollider.enabled = false;
+        portalCollider.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

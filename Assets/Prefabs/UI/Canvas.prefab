@@ -7960,8 +7960,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4e2db199de3194c84fe9efea25ae35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portalX: {fileID: 5248898416662585010, guid: 7aa8909356547294dafa04c4a71d32ee, type: 3}
-  portalY: {fileID: 5248898416662585010, guid: 7aa8909356547294dafa04c4a71d32ee, type: 3}
+  portalX: {fileID: 5248898416662585010, guid: 6d66c507097409a4889bbfa323bb875a, type: 3}
+  portalY: {fileID: 5248898416662585010, guid: 6d66c507097409a4889bbfa323bb875a, type: 3}
   portalXPosition: {x: -2, y: 3, z: 0}
   portalYPosition: {x: 2, y: 3, z: 0}
 --- !u!1 &7967348510803310032
@@ -8366,8 +8366,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4e2db199de3194c84fe9efea25ae35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portalX: {fileID: 5248898416662585010, guid: 7aa8909356547294dafa04c4a71d32ee, type: 3}
-  portalY: {fileID: 5248898416662585010, guid: 7aa8909356547294dafa04c4a71d32ee, type: 3}
+  portalX: {fileID: 5248898416662585010, guid: 592ba647927833240acae78ad936e580, type: 3}
+  portalY: {fileID: 5248898416662585010, guid: 592ba647927833240acae78ad936e580, type: 3}
   portalXPosition: {x: -2, y: 3, z: 0}
   portalYPosition: {x: 2, y: 3, z: 0}
 --- !u!1 &8373127269688911411

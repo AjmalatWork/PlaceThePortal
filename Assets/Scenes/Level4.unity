@@ -1100,6 +1100,14 @@ PrefabInstance:
       value: 1792
       objectReference: {fileID: 0}
     - target: {fileID: 5957646281756413517, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+      propertyPath: portalX
+      value: 
+      objectReference: {fileID: 5248898416662585010, guid: 592ba647927833240acae78ad936e580, type: 3}
+    - target: {fileID: 5957646281756413517, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+      propertyPath: portalY
+      value: 
+      objectReference: {fileID: 5248898416662585010, guid: 592ba647927833240acae78ad936e580, type: 3}
+    - target: {fileID: 5957646281756413517, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
       propertyPath: portalXPosition.y
       value: 1
       objectReference: {fileID: 0}
