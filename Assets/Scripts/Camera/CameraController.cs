@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,11 @@ public class CameraController : MonoBehaviour, IResetable
     float camRightX;
     Vector3 camDirection = Vector3.zero;
     Vector3 originalPosition;
+    Vector3 targetPos;
+
+    bool levelShown = false;
+    bool movedBack = false;
+    float startSpeed = 0.02f;
 
     private void OnEnable()
     {
@@ -30,9 +36,54 @@ public class CameraController : MonoBehaviour, IResetable
         PlayButtonController.Instance.UnregisterResetableObject(this);
     }
 
+    private void Start()
+    {
+        targetPos = new(maxX, transform.position.y, transform.position.z);
+    }
+
+    private void MoveCamAtoB(Vector3 a, Vector3 b, float speed)
+    {   
+        transform.position = Vector3.MoveTowards(a, b, speed);
+    }
+
+    IEnumerator SetTrueAfterSeconds(float seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds);
+        levelShown = true;
+    }
+
+    void ShowLevel()
+    {
+        if (!levelShown)
+        {
+            MoveCamAtoB(transform.position, targetPos, startSpeed);
+            if (transform.position == targetPos)
+            {
+                StartCoroutine(SetTrueAfterSeconds(1f));                
+            }
+        }
+
+        if (levelShown)
+        {            
+            MoveCamAtoB(transform.position, originalPosition, startSpeed * 10);
+            if (transform.position == originalPosition)
+            {
+                movedBack = true;
+            }
+        }
+    }
+
     private void Update()
     {
-        MoveCamera();
+        if(!movedBack)
+        {
+            ShowLevel();
+        }
+
+        if (movedBack)
+        {
+            MoveCamera();
+        }        
     }
 
     void MoveCamera()
@@ -63,9 +114,9 @@ public class CameraController : MonoBehaviour, IResetable
             else
             {
                 try
-                {
-                    playerController = hit.collider.gameObject.GetComponent<PlayerController>();                  
-                    if (playerController.isDragging)
+                {   
+                    playerController = hit.collider.gameObject.GetComponent<PlayerController>();
+                    if (playerController)
                     {
                         Vector3 mouseWorldPositon = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                         originX = mouseWorldPositon.x;
@@ -95,9 +146,6 @@ public class CameraController : MonoBehaviour, IResetable
         else if(shouldMoveWithPortal)
         {
             CalculateCameraBounds();
-            Debug.Log("camL"+camLeftX);
-            Debug.Log("camR" + camRightX);
-            Debug.Log("OriginX" + originX);
             if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x > camLeftX && Camera.main.ScreenToWorldPoint(Input.mousePosition).x < camLeftX + 0.5f)
             {
                 camDirection = Vector3.left;
