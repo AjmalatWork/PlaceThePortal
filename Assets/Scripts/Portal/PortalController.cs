@@ -29,7 +29,7 @@ public class PortalController : MonoBehaviour
 
         if (collision.gameObject.CompareTag(TagConstants.Portable))
         {
-            if (Vector2.Distance(collision.gameObject.transform.position, transform.position) > 0.29f)
+            if (Vector2.Distance(collision.gameObject.transform.position, transform.position) > 0.25f)
             {
                 AudioManager.instance.PlayClip(teleportAudio, SFX.Teleport); 
                 // Get rigidbody2d component of colliding object
