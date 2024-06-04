@@ -1,4 +1,4 @@
 public interface ICollectible
 {
-    void OnCollect();
+    void OnCollect(int count);
 }

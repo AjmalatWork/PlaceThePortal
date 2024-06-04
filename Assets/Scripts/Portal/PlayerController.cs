@@ -29,10 +29,15 @@ public class PlayerController : MonoBehaviour
     Bounds portalBounds;
 
     Camera mainCamera;
+    AudioSource placeAudio;
+    Collider2D dragCollider;
 
     private void Awake()
     {
+        placeAudio = GetComponent<AudioSource>();
         portalIconSR = gameObject.GetComponent<SpriteRenderer>();
+        dragCollider = GetComponent<BoxCollider2D>();
+
         portalBounds = portalIconSR.sprite.bounds;
         portalSizeX = portalBounds.size.x;
         portalSizeY = portalBounds.size.y;
@@ -47,11 +52,14 @@ public class PlayerController : MonoBehaviour
     }
 
     void UpdateColliderPosition()
-    {
-        Collider2D collider = GetComponent<Collider2D>();
-        if (collider != null)
+    {        
+        if (dragCollider != null)
         {
-            collider.transform.position = transform.position;
+            dragCollider.transform.position = transform.position;
+        }
+        if(dragCollider.transform.position != transform.position)
+        {
+            Debug.Log("Collider dislocated");
         }
     }
 
@@ -98,7 +106,7 @@ public class PlayerController : MonoBehaviour
             isDragging = false;
 
             PlacePortal();
-            SetTransparency();
+            SetTransparency();            
         }
     }
 
@@ -220,6 +228,7 @@ public class PlayerController : MonoBehaviour
         if (isPortalPlaced)
         {
             color.a = ValueConstants.alphaOpaque;
+            AudioManager.instance.PlayClip(placeAudio, SFX.PlacePortal);
         }
         else
         {

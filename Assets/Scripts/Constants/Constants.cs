@@ -50,6 +50,13 @@ public static class Colors
     public const string Blue    = "#2D66E1";
 }
 
+public static class SFX
+{
+    public const int LevelEnd       = 0;
+    public const int Teleport       = 1;
+    public const int PlacePortal    = 2;
+}
+
 public static class Mapping
 {
     public static readonly Dictionary<string, string> PortalColorToSprite = new()

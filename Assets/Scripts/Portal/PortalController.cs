@@ -31,7 +31,7 @@ public class PortalController : MonoBehaviour
         {
             if (Vector2.Distance(collision.gameObject.transform.position, transform.position) > 0.29f)
             {
-                teleportAudio.Play();
+                AudioManager.instance.PlayClip(teleportAudio, SFX.Teleport); 
                 // Get rigidbody2d component of colliding object
                 Rigidbody2D portableRb = collision.gameObject.GetComponent<Rigidbody2D>();
 

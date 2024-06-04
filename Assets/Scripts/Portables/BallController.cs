@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class BallController : BasePortable, IResetable
 {
-    [NonSerialized]public float starsCollected = 0;
+    [NonSerialized]public int starsCollected = 0;
     public RectTransform levelEndPanel;
     public RectTransform inLevelPanel;
     public Transform headTransform;
@@ -44,8 +44,8 @@ public class BallController : BasePortable, IResetable
             Star currentStar = collision.gameObject.GetComponent<Star>();
             if (currentStar.starRenderer.enabled)
             {
-                starsCollected++;
-                currentStar.OnCollect();
+                currentStar.OnCollect(starsCollected);
+                starsCollected++;                
             }
         }
     }
@@ -54,7 +54,7 @@ public class BallController : BasePortable, IResetable
     {
         base.SetOriginalState();
         Debug.Log("Stars Collected this run: " + starsCollected);
-        starsCollected = 0f;
+        starsCollected = 0;
     }
 
     void MoveHeadToBody()
