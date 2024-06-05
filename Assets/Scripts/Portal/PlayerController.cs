@@ -47,20 +47,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         HandleMouseInput();
-        // Ensure collider position is updated
-        UpdateColliderPosition();
-    }
-
-    void UpdateColliderPosition()
-    {        
-        if (dragCollider != null)
-        {
-            dragCollider.transform.position = transform.position;
-        }
-        if(dragCollider.transform.position != transform.position)
-        {
-            Debug.Log("Collider dislocated");
-        }
     }
 
     private void HandleMouseInput()
@@ -106,7 +92,27 @@ public class PlayerController : MonoBehaviour
             isDragging = false;
 
             PlacePortal();
-            SetTransparency();            
+
+            SetTransparency();
+
+            // This is done to fix a bug where collider did not move with the object
+            ResetObject();
+
+            AudioFeedback();
+        }
+    }
+
+    void ResetObject()
+    {
+        gameObject.SetActive(false);
+        gameObject.SetActive(true);
+    }
+
+    void AudioFeedback()
+    {
+        if(isPortalPlaced) 
+        {
+            AudioManager.instance.PlayClip(placeAudio, SFX.PlacePortal);
         }
     }
 
@@ -227,8 +233,7 @@ public class PlayerController : MonoBehaviour
         Color color = portalIconSR.color;
         if (isPortalPlaced)
         {
-            color.a = ValueConstants.alphaOpaque;
-            AudioManager.instance.PlayClip(placeAudio, SFX.PlacePortal);
+            color.a = ValueConstants.alphaOpaque;            
         }
         else
         {

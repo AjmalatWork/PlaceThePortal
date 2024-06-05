@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +23,8 @@ public class CameraController : MonoBehaviour, IResetable
 
     bool levelShown = false;
     bool movedBack = false;
-    float startSpeed = 0.02f;
+    bool waited = false;
+    readonly float startSpeed = 1f;
 
     private void OnEnable()
     {
@@ -39,17 +39,24 @@ public class CameraController : MonoBehaviour, IResetable
     private void Start()
     {
         targetPos = new(maxX, transform.position.y, transform.position.z);
+        StartCoroutine(UpdateAfterSeconds(1f));
     }
 
     private void MoveCamAtoB(Vector3 a, Vector3 b, float speed)
     {   
-        transform.position = Vector3.MoveTowards(a, b, speed);
+        transform.position = Vector3.MoveTowards(a, b, speed * Time.fixedDeltaTime);
     }
 
     IEnumerator SetTrueAfterSeconds(float seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
         levelShown = true;
+    }
+
+    IEnumerator UpdateAfterSeconds(float seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds);
+        waited = true;
     }
 
     void ShowLevel()
@@ -75,15 +82,18 @@ public class CameraController : MonoBehaviour, IResetable
 
     private void Update()
     {
-        if(!movedBack)
+        if (waited)
         {
-            ShowLevel();
-        }
+            if (!movedBack)
+            {
+                ShowLevel();
+            }
 
-        if (movedBack)
-        {
-            MoveCamera();
-        }        
+            if (movedBack)
+            {
+                MoveCamera();
+            }
+        }                     
     }
 
     void MoveCamera()

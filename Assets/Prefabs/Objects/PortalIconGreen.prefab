@@ -151,7 +151,7 @@ MonoBehaviour:
   portalLayer:
     serializedVersion: 2
     m_Bits: 64
-  distanceToSnap: 1.2
+  distanceToSnap: 2
   portal: {fileID: 1973725480156956171, guid: 4abd2676b06339b4c980c81f1cbaef8e, type: 3}
   color: Green
 --- !u!82 &-553758237736316893
@@ -165,7 +165,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

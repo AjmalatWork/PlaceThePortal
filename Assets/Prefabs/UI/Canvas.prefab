@@ -8930,6 +8930,7 @@ GameObject:
   - component: {fileID: 4988118282585648843}
   - component: {fileID: 1541840692711678866}
   - component: {fileID: 8332821765201539697}
+  - component: {fileID: 6584383176207669756}
   m_Layer: 5
   m_Name: LevelEndPanel
   m_TagString: Untagged
@@ -9007,7 +9008,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -9092,6 +9093,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6584383176207669756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8778772792291417254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64d59e1b9f75ee4eb6f9564e9b67aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9090592167430030991
 GameObject:
   m_ObjectHideFlags: 0

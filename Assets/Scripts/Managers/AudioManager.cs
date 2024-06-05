@@ -12,9 +12,9 @@ public class AudioManager : MonoBehaviour
     private AudioSource audioSource;
 
     //SFXList must contain the entries in following order:
-    //0   LevelEndMusic
-    //1   Teleport
-
+    //0   LevelEndSFX
+    //1   TeleportSFX
+    //2   PortalPlacementSFX
     private void Awake()
     {
         // Ensure this object persists across scenes
