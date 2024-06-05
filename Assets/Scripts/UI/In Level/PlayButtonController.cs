@@ -148,23 +148,26 @@ public class PlayButtonController : BaseUIButton, IClickableUI
                 portalPlaceholders[i].SetActive(false);
             }
 
-            // Loop to add destination of all portals
-            for (int i = 0;i < numberOfPortals; i+=2) 
+            // New logic for adding destination to portals based on color
+            for (int i = 0; i < numberOfPortals; i++)
             {
-                // If both portals are placed, then add destinations
-                if (playerControllers[i].isPortalPlaced && playerControllers[i + 1].isPortalPlaced)
+                if (playerControllers[i].isPortalPlaced)
                 {
-                    portalControllers[i].destination = portalControllers[i + 1].transform;
-                    portalControllers[i + 1].destination = portalControllers[i].transform;
+                    for (int j = i + 1; j < numberOfPortals; j++)
+                    {
+                        if(playerControllers[i].color == playerControllers[j].color)
+                        {
+                            if(playerControllers[j].isPortalPlaced)
+                            {
+                                portalControllers[j].destination = portalControllers[i].transform;
+                                portalControllers[i].destination = portalControllers[j].transform;
+                            }
+                        }
+                    }
                 }
-                // if only one portal is placed, then remove destination
-                else if (playerControllers[i].isPortalPlaced)
+                else 
                 {
                     portalControllers[i].destination = null;
-                }
-                else if (playerControllers[i + 1].isPortalPlaced)
-                {
-                    portalControllers[i + 1].destination = null;
                 }
             }
         }

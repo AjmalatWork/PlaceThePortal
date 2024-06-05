@@ -4,6 +4,8 @@ public class BasePortable : MonoBehaviour, IResetable
 {
     Vector3 originalPosition;
     Vector3 originalVelocity;
+    float originalAngVelocity;
+    float originalInertia;
     Quaternion originalRotation;
     Rigidbody2D objRb;
 
@@ -40,6 +42,8 @@ public class BasePortable : MonoBehaviour, IResetable
         originalPosition = transform.position;
         originalRotation = transform.rotation;
         originalVelocity = objRb.velocity;
+        originalAngVelocity = objRb.angularVelocity;
+        originalInertia = objRb.inertia;
     }
 
     public void SetOriginalState()
@@ -47,6 +51,8 @@ public class BasePortable : MonoBehaviour, IResetable
         transform.position = originalPosition;
         transform.rotation = originalRotation;
         objRb.velocity = originalVelocity;
+        objRb.angularVelocity = originalAngVelocity;
+        objRb.inertia = originalInertia;
     }
 
     public void StopMotion()

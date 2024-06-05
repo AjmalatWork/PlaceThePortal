@@ -11,9 +11,8 @@ public class LevelSelect : BaseUIButton, IClickableUI
     }
     public new void OnClick()
     {
-        int levelBuildIndex;
-        if(int.TryParse(buttonText.text, out levelBuildIndex))
-        {
+        if (int.TryParse(buttonText.text, out int levelBuildIndex))
+        {            
             SceneManager.LoadScene(levelBuildIndex);
         }
         else

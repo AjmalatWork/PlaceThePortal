@@ -30,13 +30,11 @@ public class PlayerController : MonoBehaviour
 
     Camera mainCamera;
     AudioSource placeAudio;
-    Collider2D dragCollider;
 
     private void Awake()
     {
         placeAudio = GetComponent<AudioSource>();
         portalIconSR = gameObject.GetComponent<SpriteRenderer>();
-        dragCollider = GetComponent<BoxCollider2D>();
 
         portalBounds = portalIconSR.sprite.bounds;
         portalSizeX = portalBounds.size.x;

@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour, IResetable
     public float speed = 15f;
     public Button playButton;    
     public GameObject ball;
+    public RectTransform inLevelPanel;
 
     bool isDragging = false;
     bool shouldMoveWithPortal = false;
@@ -38,8 +39,9 @@ public class CameraController : MonoBehaviour, IResetable
 
     private void Start()
     {
+        inLevelPanel.gameObject.SetActive(false);
         targetPos = new(maxX, transform.position.y, transform.position.z);
-        StartCoroutine(UpdateAfterSeconds(1f));
+        StartCoroutine(StartUpdateAfterSeconds(0.5f));        
     }
 
     private void MoveCamAtoB(Vector3 a, Vector3 b, float speed)
@@ -53,7 +55,7 @@ public class CameraController : MonoBehaviour, IResetable
         levelShown = true;
     }
 
-    IEnumerator UpdateAfterSeconds(float seconds)
+    IEnumerator StartUpdateAfterSeconds(float seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
         waited = true;
@@ -91,6 +93,10 @@ public class CameraController : MonoBehaviour, IResetable
 
             if (movedBack)
             {
+                if(!inLevelPanel.gameObject.activeSelf)
+                {
+                    inLevelPanel.gameObject.SetActive(true);
+                }                    
                 MoveCamera();
             }
         }                     
