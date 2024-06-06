@@ -462,6 +462,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1934709447638812470, guid: 5704246348a1faa45970e847ae64f451, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934709447638812470, guid: 5704246348a1faa45970e847ae64f451, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 2381211510058133647, guid: 5704246348a1faa45970e847ae64f451, type: 3}
       propertyPath: m_Name
       value: LaserButton

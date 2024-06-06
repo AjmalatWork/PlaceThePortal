@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1421370838591653411}
   - component: {fileID: 8887384347328137144}
   - component: {fileID: 2518190991089322238}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: IceGroundXS
-  m_TagString: Placeable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

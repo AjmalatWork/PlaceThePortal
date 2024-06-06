@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
     float portalSizeX;
     float portalSizeY;
     Bounds portalBounds;
+    Vector3 extents;
 
     Camera mainCamera;
     AudioSource placeAudio;
@@ -40,6 +42,8 @@ public class PlayerController : MonoBehaviour
         portalSizeX = portalBounds.size.x;
         portalSizeY = portalBounds.size.y;
         mainCamera = Camera.main;
+
+        extents = portalBounds.extents;
     }
 
     private void Update()
@@ -51,6 +55,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            // This is to fix bug where clicking on UI button also registered click on portal if it was beneath it
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
             Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             Collider2D hitCollider = Physics2D.OverlapPoint(mousePosition, portalLayer);
 
@@ -61,8 +69,6 @@ public class PlayerController : MonoBehaviour
 
                 // Increase the scale of the object to show it was clicked
                 transform.localScale *= 1.2f;
-
-                // Set dragging as true
                 isDragging = true;
                 isPortalPlaced = false;
                 SetTransparency();
@@ -73,9 +79,15 @@ public class PlayerController : MonoBehaviour
         {
             // Get new position of object at each frame it is being dragged
             Vector3 newPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition) + offset;
-            newPosition = new Vector3(newPosition.x, newPosition.y, transform.position.z);
 
-            // Change the position of object to new position
+            Vector3 topRight = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, Camera.main.nearClipPlane));
+            topRight -= new Vector3(0.5f, 0.5f, 0);
+            Vector3 bottomLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
+            bottomLeft += new Vector3(0.5f, 1.2f, 0);
+
+            newPosition.x = Mathf.Clamp(newPosition.x, bottomLeft.x + extents.x, topRight.x - extents.x);
+            newPosition.y = Mathf.Clamp(newPosition.y, bottomLeft.y + extents.y, topRight.y - extents.y);
+
             transform.position = newPosition;
         }
 
@@ -85,17 +97,11 @@ public class PlayerController : MonoBehaviour
 
             // Decrease the scale of the object to show click was released
             transform.localScale /= 1.2f;
-
-            // Set dragging as false
             isDragging = false;
-
+            
             PlacePortal();
-
             SetTransparency();
-
-            // This is done to fix a bug where collider did not move with the object
-            ResetObject();
-
+            ResetObject();  // This is done to fix a bug where collider did not move with the object
             AudioFeedback();
         }
     }

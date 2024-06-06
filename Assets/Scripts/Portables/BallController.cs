@@ -16,14 +16,37 @@ public class BallController : BasePortable, IResetable
     GameObject body;
     public GameObject happyBody;
 
+    //float elapsedTime;
+    //public float lossTime = 5f;
+    //public GameObject Arrow;
+    //ArrowMover arrowMover;
+
     private void Start()
     {
         body = headTransform.parent.gameObject;
         bodyRenderer = body.GetComponent<SpriteRenderer>();
+        //arrowMover = Arrow.GetComponent<ArrowMover>();
     }
 
     private void Update()
     {
+        // Get time since playbutton was pressed
+        // If it is greater than set time, show reset screen
+        //if(!PlayButtonController.Instance.isPlay)
+        //{
+        //    elapsedTime = Time.time - PlayButtonController.Instance.playPressedTime;
+        //    if (elapsedTime > lossTime && !endLevel)
+        //    {
+        //        Time.timeScale = 0f;
+        //        arrowMover.pointA = VectorConstants.playButtonA;
+        //        arrowMover.pointB = VectorConstants.playButtonB;
+        //        arrowMover.arrowRotation = VectorConstants.playButtonRotation;
+        //        Arrow.SetActive(true);
+        //        PlayButtonController.Instance.playPressedTime = 0f;
+        //    }
+        //}
+
+        // When level finished, start end animation
         if (endLevel) 
         {
             Invoke(nameof(MoveHeadToBody),0.2f);

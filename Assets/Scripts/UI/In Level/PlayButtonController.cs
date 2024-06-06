@@ -8,6 +8,7 @@ public class PlayButtonController : BaseUIButton, IClickableUI
 {
     public GameObject portal;
     [NonSerialized] public bool isPlay = true;
+    [NonSerialized] public float playPressedTime;
 
     GameObject[] portals;
     GameObject[] portalPlaceholders;
@@ -16,6 +17,7 @@ public class PlayButtonController : BaseUIButton, IClickableUI
     Image image;
 
     List<IResetable> resetableObjects = new();
+    List<int> destinationSetIndex = new();
     public static PlayButtonController Instance { get; private set; }
 
     private void Awake()
@@ -75,6 +77,7 @@ public class PlayButtonController : BaseUIButton, IClickableUI
         // Start time on pressing Play
         Time.timeScale = 1f;
         isPlay = false;
+        playPressedTime = Time.time;
 
         // Activate portals if portalplaceholders are placed on placeable objects
         ActivatePortals();
@@ -102,7 +105,7 @@ public class PlayButtonController : BaseUIButton, IClickableUI
             StartGame();
         }
         else
-        {
+        {            
             image.sprite = Resources.Load<Sprite>(FileConstants.Play);
             ResetGame();
         }
@@ -146,30 +149,40 @@ public class PlayButtonController : BaseUIButton, IClickableUI
 
                 // Deactivate Portal Placeholder
                 portalPlaceholders[i].SetActive(false);
-            }
+            }            
 
             // New logic for adding destination to portals based on color
             for (int i = 0; i < numberOfPortals; i++)
             {
+                if (destinationSetIndex.Contains(i))
+                    continue;
+
                 if (playerControllers[i].isPortalPlaced)
                 {
+                    // Set destination as null if portal is placed
+                    portalControllers[i].destination = null;
+
                     for (int j = i + 1; j < numberOfPortals; j++)
                     {
-                        if(playerControllers[i].color == playerControllers[j].color)
-                        {
-                            if(playerControllers[j].isPortalPlaced)
-                            {
-                                portalControllers[j].destination = portalControllers[i].transform;
-                                portalControllers[i].destination = portalControllers[j].transform;
-                            }
-                        }
-                    }
-                }
-                else 
-                {
-                    portalControllers[i].destination = null;
+                        // if color is not same, go to next portal
+                        if (playerControllers[i].color != playerControllers[j].color)
+                            continue;
+
+                        // if portal is not placed, go to next portal
+                        if (!playerControllers[j].isPortalPlaced)
+                            continue;
+
+                        // Set destination
+                        portalControllers[j].destination = portalControllers[i].transform;
+                        portalControllers[i].destination = portalControllers[j].transform;
+
+                        destinationSetIndex.Add(j);
+                        destinationSetIndex.Add(i);
+                        break;                        
+                    }                        
                 }
             }
+            destinationSetIndex.Clear();
         }
     }
 

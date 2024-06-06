@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour, IResetable
     bool levelShown = false;
     bool movedBack = false;
     bool waited = false;
-    readonly float startSpeed = 1f;
+    readonly float startSpeed = 5f;
 
     private void OnEnable()
     {
@@ -74,7 +74,7 @@ public class CameraController : MonoBehaviour, IResetable
 
         if (levelShown)
         {            
-            MoveCamAtoB(transform.position, originalPosition, startSpeed * 10);
+            MoveCamAtoB(transform.position, originalPosition, startSpeed + 10);
             if (transform.position == originalPosition)
             {
                 movedBack = true;
@@ -162,11 +162,11 @@ public class CameraController : MonoBehaviour, IResetable
         else if(shouldMoveWithPortal)
         {
             CalculateCameraBounds();
-            if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x > camLeftX && Camera.main.ScreenToWorldPoint(Input.mousePosition).x < camLeftX + 0.5f)
+            if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x > camLeftX && Camera.main.ScreenToWorldPoint(Input.mousePosition).x < camLeftX + 1f)
             {
                 camDirection = Vector3.left;
             }
-            else if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x > camRightX - 0.5f && Camera.main.ScreenToWorldPoint(Input.mousePosition).x < camRightX)
+            else if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x > camRightX - 1f && Camera.main.ScreenToWorldPoint(Input.mousePosition).x < camRightX)
             {
                 camDirection = Vector3.right;
             }

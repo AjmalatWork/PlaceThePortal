@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class FileConstants
 {
@@ -55,6 +56,13 @@ public static class SFX
     public const int LevelEnd       = 0;
     public const int Teleport       = 1;
     public const int PlacePortal    = 2;
+}
+
+public static class VectorConstants
+{
+    public static readonly Vector3 playButtonA = new Vector3(-2.2f, 7.5f, 0f);
+    public static readonly Vector3 playButtonB = new Vector3(-0.4f, 5.7f, 0f);
+    public static readonly Vector3 playButtonRotation = new Vector3(0f, 0f, 135f);
 }
 
 public static class Mapping
