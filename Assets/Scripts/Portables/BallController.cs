@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class BallController : BasePortable, IResetable
 {
     [NonSerialized]public int starsCollected = 0;
+    public RectTransform tutorialPanel;
     public RectTransform levelEndPanel;
     public RectTransform inLevelPanel;
     public Transform headTransform;
@@ -65,6 +66,7 @@ public class BallController : BasePortable, IResetable
         {            
             endLevel = true;
             inLevelPanel.gameObject.SetActive(false);
+            TutorialManager.Instance.TextFadeOut();
         }
 
         if (collision.gameObject.CompareTag(TagConstants.Collectible))
