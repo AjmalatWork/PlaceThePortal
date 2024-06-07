@@ -8186,10 +8186,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8443484fe5b95a4c9fb26dabc1d5128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointA: {x: -222, y: 701, z: 0}
-  pointB: {x: -83, y: 562, z: 0}
-  arrowRotation: {x: 0, y: 0, z: 135}
-  speed: 50
+  pointA: {x: 0, y: 0, z: 0}
+  pointB: {x: 0, y: 0, z: 0}
+  arrowRotation: {x: 0, y: 0, z: 0}
+  speed: 40
 --- !u!1 &8134271982726286068
 GameObject:
   m_ObjectHideFlags: 0
@@ -8609,6 +8609,7 @@ GameObject:
   - component: {fileID: 9075652303352240462}
   - component: {fileID: 7666603592658683191}
   - component: {fileID: 8844419949197609317}
+  - component: {fileID: 6968582790453572934}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -8742,6 +8743,18 @@ MonoBehaviour:
   - {fileID: 3431071325842564475}
   - {fileID: 5420939083775088029}
   - {fileID: 1463036211131761794}
+--- !u!114 &6968582790453572934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8405314177444354222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f73314b0760c56a40ae36389656eb355, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8449075009194833054
 GameObject:
   m_ObjectHideFlags: 0
