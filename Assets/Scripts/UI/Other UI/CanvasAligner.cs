@@ -24,7 +24,6 @@ public class CanvasAligner : MonoBehaviour
         {
             float screenAspect = (float)Screen.width / (float)Screen.height;
             float targetAspect = targetCamera.aspect;
-            Debug.Log(targetAspect);
 
             if (screenAspect >= targetAspect)
             {

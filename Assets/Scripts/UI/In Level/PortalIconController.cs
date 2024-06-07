@@ -19,6 +19,8 @@ public class PortalIconController : BaseUIButton, IClickableUI
 
     public new void OnClick()
     {
+        ArrowMover.Instance.DisableArrow();
+        
         // Deactivate portal icon on click and create two portal placeholders on screen
         PIImage.enabled = false;
         button.interactable = false;

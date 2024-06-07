@@ -9,6 +9,11 @@ public class TutorialManager : MonoBehaviour
     public static TutorialManager Instance { get; private set; }
 
     private Animator textAnimator;
+    private int currentLevel;
+    private GameObject[] portalPlaceholders;
+    private PlayerController[] playerControllers;
+    private bool pointArrow = false;
+    private bool pointedToPlay = false;
 
     private void Awake()
     {
@@ -27,7 +32,7 @@ public class TutorialManager : MonoBehaviour
         textAnimator = text.gameObject.GetComponent<Animator>();
 
         Scene currentScene = SceneManager.GetActiveScene();
-        int currentLevel = currentScene.buildIndex;
+        currentLevel = currentScene.buildIndex;
         text.text = TextConstants.TutorialText[currentLevel];
         text.rectTransform.anchoredPosition = TextVectorConstants.TutorialTextPos[currentLevel];
 
@@ -35,9 +40,57 @@ public class TutorialManager : MonoBehaviour
 
         switch (currentLevel)
         {
-            case 1: 
-
+            case 1:
+                ArrowMover.Instance.CallArrow(VectorConstants.PortalIconA,
+                                              VectorConstants.PortalIconB,
+                                              VectorConstants.PortalIconRotation,
+                                              VectorConstants.PortalIconScale);
                 break;
+        }
+    }
+
+    private void Update()
+    {
+        if(!pointedToPlay)
+        {
+            CheckPortalPlaced();                       
+
+            switch (currentLevel)
+            {
+                case 1:
+                    if(pointArrow)
+                    {
+                        ArrowMover.Instance.CallArrow(VectorConstants.playButtonA,
+                                                      VectorConstants.playButtonB,
+                                                      VectorConstants.playButtonRotation,
+                                                      VectorConstants.DefaultScale);
+                        pointedToPlay = true;
+                    }                
+                    break;
+            }
+        }
+    }
+
+    void CheckPortalPlaced()
+    {
+        portalPlaceholders = GameObject.FindGameObjectsWithTag(TagConstants.PortalPlaceholder);
+        int numberOfPortals = portalPlaceholders.Length;
+        if (numberOfPortals > 0)
+        {
+            playerControllers = new PlayerController[numberOfPortals];
+            for (int i = 0; i < numberOfPortals; i++)
+            {
+                playerControllers[i] = portalPlaceholders[i].GetComponent<PlayerController>();
+                if (playerControllers[i].isPortalPlaced)
+                {
+                    pointArrow = true;
+                }
+                else
+                {
+                    pointArrow = false;
+                    break;
+                }
+            }
         }
     }
 

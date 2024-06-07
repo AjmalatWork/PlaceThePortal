@@ -69,8 +69,12 @@ public static class VectorConstants
     public static readonly Vector3 playButtonA          = new(-196f, 659f, 0f);
     public static readonly Vector3 playButtonB          = new(-282f, 745f, 0f);
     public static readonly Vector3 playButtonRotation   = new(0f, 0f, 225f);
+    public static readonly Vector3 DefaultScale         = new(1f, 1f, 1f);
 
-    public static readonly Vector3 TutorialTextLevel1   = new(-137f, -93f, 0f);
+    public static readonly Vector3 PortalIconA          = new(105f, 70f, 0f);
+    public static readonly Vector3 PortalIconB          = new(200f, 70f, 0f);
+    public static readonly Vector3 PortalIconRotation   = new(0f, 0f, 90f);
+    public static readonly Vector3 PortalIconScale      = new(-1f, 1f, 1f);
 }
 
 public static class TextVectorConstants
@@ -110,7 +114,7 @@ public static class TextVectorConstants
 public static class TextConstants
 {
     public const string EmptyString = "";
-    public const string LevelText1  = "Place the portals to guide Snowy's head to its body";
+    public const string LevelText1  = "Place the portals on platform and wall surfaces to guide Snowy's head to its body";
     public const string LevelText2  = "";
     public const string LevelText3  = "Portal cannot be placed on small platforms";
     public const string LevelText4  = "";

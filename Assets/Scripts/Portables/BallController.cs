@@ -19,14 +19,11 @@ public class BallController : BasePortable, IResetable
 
     float elapsedTime;
     public float lossTime = 5f;
-    public RectTransform Arrow;
-    ArrowMover arrowMover;
 
     private void Start()
     {
         body = headTransform.parent.gameObject;
         bodyRenderer = body.GetComponent<SpriteRenderer>();
-        arrowMover = Arrow.GetComponent<ArrowMover>();
     }
 
     private void Update()
@@ -51,10 +48,10 @@ public class BallController : BasePortable, IResetable
             if (elapsedTime > lossTime && !endLevel)
             {
                 Time.timeScale = 0f;
-                arrowMover.pointA = VectorConstants.playButtonA;
-                arrowMover.pointB = VectorConstants.playButtonB;
-                arrowMover.arrowRotation = VectorConstants.playButtonRotation;
-                Arrow.gameObject.SetActive(true);
+                ArrowMover.Instance.CallArrow(VectorConstants.playButtonA,
+                                              VectorConstants.playButtonB,
+                                              VectorConstants.playButtonRotation,
+                                              VectorConstants.DefaultScale);
                 PlayButtonController.Instance.playPressedTime = 0f;
             }
         }
