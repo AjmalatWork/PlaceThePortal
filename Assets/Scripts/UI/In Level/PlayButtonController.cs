@@ -99,7 +99,10 @@ public class PlayButtonController : BaseUIButton, IClickableUI
 
     public new void OnClick()
     {
-        ArrowMover.Instance.DisableArrow();
+        if(ArrowMover.Instance != null)
+        {
+            ArrowMover.Instance.DisableArrow();
+        }        
 
         if (isPlay)
         {

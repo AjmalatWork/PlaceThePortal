@@ -75,6 +75,8 @@ public static class VectorConstants
     public static readonly Vector3 PortalIconB          = new(200f, 70f, 0f);
     public static readonly Vector3 PortalIconRotation   = new(0f, 0f, 90f);
     public static readonly Vector3 PortalIconScale      = new(-1f, 1f, 1f);
+
+    public static readonly Vector3 PortalIconOffScale      = new(0.1f, 0.1f, 0.1f);
 }
 
 public static class TextVectorConstants
@@ -85,7 +87,7 @@ public static class TextVectorConstants
     public static readonly Vector3 TextPosLevel4    = Vector3.zero;
     public static readonly Vector3 TextPosLevel5    = new(5f, 743f, 0f);
     public static readonly Vector3 TextPosLevel6    = Vector3.zero;
-    public static readonly Vector3 TextPosLevel7    = new(-234f, 190f, 0f);
+    public static readonly Vector3 TextPosLevel7    = new(-234f, -190f, 0f);
     public static readonly Vector3 TextPosLevel8    = new(-259f, 305f, 0f);
     public static readonly Vector3 TextPosLevel9    = Vector3.zero;
     public static readonly Vector3 TextPosLevel10   = Vector3.zero;

@@ -29,6 +29,11 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
+        if(!gameObject.activeSelf)
+        {
+            return;
+        }
+
         textAnimator = text.gameObject.GetComponent<Animator>();
 
         Scene currentScene = SceneManager.GetActiveScene();

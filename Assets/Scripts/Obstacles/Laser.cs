@@ -17,7 +17,10 @@ public class Laser : MonoBehaviour, IResetable
     {
         lineRenderer = GetComponent<LineRenderer>();
         laserCollider = GetComponent<BoxCollider2D>();
-        ignoreLayer = ~(1 << gameObject.layer);
+
+        int allLayers = ~0;
+        int excludedLayers = allLayers & ~(1 << 6) & ~(1 << gameObject.layer);
+        ignoreLayer = excludedLayers;
     }
 
     private void OnEnable()

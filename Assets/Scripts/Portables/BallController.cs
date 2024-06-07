@@ -63,7 +63,10 @@ public class BallController : BasePortable, IResetable
         {            
             endLevel = true;
             inLevelPanel.gameObject.SetActive(false);
-            TutorialManager.Instance.TextFadeOut();
+            if(TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.TextFadeOut();
+            }            
         }
 
         if (collision.gameObject.CompareTag(TagConstants.Collectible))
