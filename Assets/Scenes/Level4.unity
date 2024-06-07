@@ -1381,6 +1381,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1010622175565030067 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2768232845219397721, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+  m_PrefabInstance: {fileID: 1010622175565030063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1042999890745811649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1446,6 +1451,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3649661403412716364, guid: d0dcbcd3961667b458988e43b0b8f3ee, type: 3}
+      propertyPath: Arrow
+      value: 
+      objectReference: {fileID: 1010622175565030067}
     - target: {fileID: -3649661403412716364, guid: d0dcbcd3961667b458988e43b0b8f3ee, type: 3}
       propertyPath: happyBody
       value: 
