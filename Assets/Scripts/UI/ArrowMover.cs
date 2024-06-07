@@ -5,7 +5,7 @@ public class ArrowMover : MonoBehaviour
     public Vector3 pointA;
     public Vector3 pointB;
     public Vector3 arrowRotation;
-    public float speed = 50f;
+    public float speed = 40f;
 
     private RectTransform arrowPos;
     private Vector3 target;

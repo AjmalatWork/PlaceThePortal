@@ -60,9 +60,9 @@ public static class SFX
 
 public static class VectorConstants
 {
-    public static readonly Vector3 playButtonA          = new Vector3(-83f, 562f, 0f);
-    public static readonly Vector3 playButtonB          = new Vector3(-222f, 701f, 0f);
-    public static readonly Vector3 playButtonRotation   = new Vector3(0f, 0f, 135f);
+    public static readonly Vector3 playButtonA          = new Vector3(-196f, 659f, 0f);
+    public static readonly Vector3 playButtonB          = new Vector3(-282f, 745f, 0f);
+    public static readonly Vector3 playButtonRotation   = new Vector3(0f, 0f, 225f);
 }
 
 public static class Mapping
