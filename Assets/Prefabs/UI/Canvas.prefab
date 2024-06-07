@@ -3075,7 +3075,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 5669856633469259321}
-  Arrow: {fileID: 2768232845219397721}
 --- !u!1 &3134590734528082330
 GameObject:
   m_ObjectHideFlags: 0
@@ -8433,10 +8432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8443484fe5b95a4c9fb26dabc1d5128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointA: {x: 0, y: 0, z: 0}
-  pointB: {x: 0, y: 0, z: 0}
-  arrowRotation: {x: 0, y: 0, z: 0}
-  speed: 40
+  speed: 75
 --- !u!1 &8134271982726286068
 GameObject:
   m_ObjectHideFlags: 0
