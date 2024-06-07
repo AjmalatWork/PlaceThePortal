@@ -100,6 +100,10 @@ public class Laser : MonoBehaviour, IResetable
         {
             Debug.Log("Restart!");
             Time.timeScale = 0f;
+            ArrowMover.Instance.CallArrow(VectorConstants.playButtonA,
+                                          VectorConstants.playButtonB,
+                                          VectorConstants.playButtonRotation,
+                                          VectorConstants.DefaultScale);
         }
     }
 
