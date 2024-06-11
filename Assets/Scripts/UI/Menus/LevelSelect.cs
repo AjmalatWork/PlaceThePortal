@@ -29,7 +29,7 @@ public class LevelSelect : BaseUIButton, IClickableUI
     private void Start()
     {
         GetLockStatus();
-        SetTransparency();
+        Utilities.SetTransparency(buttonImage, levelUnlocked);
     }
 
     public new void OnClick()
@@ -75,19 +75,4 @@ public class LevelSelect : BaseUIButton, IClickableUI
             }
         }
     }
-
-    void SetTransparency()
-    {
-        Color color = buttonImage.color;
-        if (levelUnlocked)
-        {
-            color.a = ValueConstants.alphaOpaque;
-        }
-        else
-        {
-            color.a = ValueConstants.alphaTransparent;
-        }
-        buttonImage.color = color;
-    }
-
 }
