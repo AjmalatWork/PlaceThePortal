@@ -34,7 +34,10 @@ public class LevelSelect : BaseUIButton, IClickableUI
 
     public new void OnClick()
     {
-        SceneManager.LoadScene(currentLevel);
+        if(levelUnlocked)
+        {
+            SceneManager.LoadScene(currentLevel);
+        }        
     }
 
     void GetLockStatus()
@@ -47,7 +50,7 @@ public class LevelSelect : BaseUIButton, IClickableUI
         else
         {
             int stars = PlayerProgress.GetStarsForLevel(prevLevel);
-            if (stars == 3)
+            if (stars != 0)
             {
                 levelUnlocked = true;
             }
@@ -55,7 +58,22 @@ public class LevelSelect : BaseUIButton, IClickableUI
             {
                 levelUnlocked = false;
             }
-        }        
+        }
+
+        // For levels 6, 11, 16 and so on
+        if ((currentLevel - 1) % 5 == 0)
+        {
+            int CollectedStars = PlayerProgress.GetTotalStars();
+            int TotalStars = (currentLevel - 1) * 3;
+            if (CollectedStars >= 0.6 * TotalStars)
+            {
+                levelUnlocked = true;
+            }
+            else
+            {
+                levelUnlocked = false;
+            }
+        }
     }
 
     void SetTransparency()
