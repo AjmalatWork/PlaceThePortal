@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BallController : BasePortable, IResetable
@@ -66,7 +67,8 @@ public class BallController : BasePortable, IResetable
             if(TutorialManager.Instance != null)
             {
                 TutorialManager.Instance.TextFadeOut();
-            }            
+            }
+            SaveStars();
         }
 
         if (collision.gameObject.CompareTag(TagConstants.Collectible))
@@ -108,6 +110,18 @@ public class BallController : BasePortable, IResetable
         String imageName = FileConstants.End + starsCollected;
         endImage.sprite = Resources.Load<Sprite>(imageName);
         levelEndPanel.gameObject.SetActive(true);        
+    }
+
+    void SaveStars()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        int currentLevel = currentScene.buildIndex;
+        int prevStars = PlayerProgress.GetStarsForLevel(currentLevel);
+
+        if(starsCollected > prevStars)
+        {
+            PlayerProgress.SaveStarsForLevel(currentLevel, starsCollected);
+        }        
     }
 
 }
