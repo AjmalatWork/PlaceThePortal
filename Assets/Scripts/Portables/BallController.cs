@@ -45,7 +45,7 @@ public class BallController : BasePortable, IResetable
         if (!PlayButtonController.Instance.isPlay)
         {
             elapsedTime = Time.time - PlayButtonController.Instance.playPressedTime;
-            if (elapsedTime > lossTime && !endLevel)
+            if (elapsedTime > lossTime && !endLevel && ArrowMover.Instance != null)                
             {
                 Time.timeScale = 0f;
                 ArrowMover.Instance.CallArrow(VectorConstants.playButtonA,

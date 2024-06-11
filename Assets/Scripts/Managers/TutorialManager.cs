@@ -6,6 +6,7 @@ using System.Collections;
 public class TutorialManager : MonoBehaviour
 {
     public TextMeshProUGUI text;
+    public RectTransform PortalIcon;
     public static TutorialManager Instance { get; private set; }
 
     private Animator textAnimator;
@@ -27,13 +28,8 @@ public class TutorialManager : MonoBehaviour
         }         
     }
 
-    void Start()
+    void OnEnable()
     {
-        if(!gameObject.activeSelf)
-        {
-            return;
-        }
-
         textAnimator = text.gameObject.GetComponent<Animator>();
 
         Scene currentScene = SceneManager.GetActiveScene();
@@ -43,6 +39,16 @@ public class TutorialManager : MonoBehaviour
 
         StartCoroutine(FadeIn());
 
+        if(ArrowMover.Instance == null)
+        {
+            return ;
+        }
+
+        if(PortalIcon.localScale == VectorConstants.PortalIconOffScale)
+        {
+            return;
+        }
+
         switch (currentLevel)
         {
             case 1:
@@ -50,6 +56,8 @@ public class TutorialManager : MonoBehaviour
                                               VectorConstants.PortalIconB,
                                               VectorConstants.PortalIconRotation,
                                               VectorConstants.PortalIconScale);
+                break;
+            default:
                 break;
         }
     }
@@ -63,7 +71,7 @@ public class TutorialManager : MonoBehaviour
             switch (currentLevel)
             {
                 case 1:
-                    if(pointArrow)
+                    if(pointArrow && ArrowMover.Instance != null)
                     {
                         ArrowMover.Instance.CallArrow(VectorConstants.playButtonA,
                                                       VectorConstants.playButtonB,
@@ -71,6 +79,8 @@ public class TutorialManager : MonoBehaviour
                                                       VectorConstants.DefaultScale);
                         pointedToPlay = true;
                     }                
+                    break;
+                default :
                     break;
             }
         }

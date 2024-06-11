@@ -816,7 +816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3120898247116616772, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3741269153973638914, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
       propertyPath: m_IsActive
@@ -1029,6 +1029,14 @@ PrefabInstance:
     - target: {fileID: 5329238981410576178, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
       propertyPath: m_ReferenceResolution.y
       value: 1792
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669856633469259321, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669856633469259321, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
+      propertyPath: m_fontSize
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 5957646281756413517, guid: 13f43257a49fb7e4786a42c4ad9ec25a, type: 3}
       propertyPath: portalX
